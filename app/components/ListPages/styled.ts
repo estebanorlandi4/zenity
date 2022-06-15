@@ -70,3 +70,22 @@ export const Page = styled.li`
     }
   }
 `;
+
+export const EmptyPage = styled.li`
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto;
+
+  button {
+    display: grid;
+    place-items: center;
+
+    background-color: red;
+    width: 100%;
+    height: 100%;
+
+    background-color: #ffffff05;
+    border: 3px dashed #fff2;
+    border-radius: 1rem;
+  }
+`;

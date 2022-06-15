@@ -11,7 +11,12 @@ const parseDate = (): IDate => {
   const mm: string = addZero(date.getMinutes());
   const ss: string = addZero(date.getSeconds());
 
-  return { hh, mm, ss };
+  const dd: string = date.getDate().toString();
+  const DD: string = date.getDay().toString();
+  const MM: string = date.getMonth().toString();
+  const YY: string = date.getFullYear().toString();
+
+  return { hh, mm, ss, dd, DD, MM, YY };
 };
 
 function useClock(): IDate | null {

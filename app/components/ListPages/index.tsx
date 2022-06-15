@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import { Container, Grid, Page } from './styled';
+import { Container, EmptyPage, Grid, Page } from './styled';
 
 import mockup from '../../mockups/pages.json';
 import { useEffect, useState } from 'react';
+import { getLocal, removeLocal, saveLocal } from '../../utils/storage';
 
-const Img = ({ url, ...props }: any) => {
+const Img = ({ url }: any) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onLoad = () => setIsLoading(false);
@@ -24,18 +25,34 @@ const Img = ({ url, ...props }: any) => {
 };
 
 function ListFavorites() {
+  const handleSite = (index: number) => {
+    console.log(index);
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <Container>
-      <h3>Favorites</h3>
       <Grid>
-        {mockup.favorites.map(({ name, url }, i) => (
-          <Page key={i}>
-            <a href={`https://${url}`}>
-              <Img url={url} />
-              <p>{name}</p>
-            </a>
-          </Page>
-        ))}
+        {Array.from({ length: 8 }).map((_, i) => {
+          const favorite = mockup.favorites[i];
+          if (!favorite)
+            return (
+              <EmptyPage key={i}>
+                <button onClick={() => handleSite(i)}>Add Site</button>
+              </EmptyPage>
+            );
+
+          const { name, url } = favorite;
+          return (
+            <Page key={i}>
+              <a href={`https://${url}`}>
+                <Img url={url} />
+                <p>{name}</p>
+              </a>
+            </Page>
+          );
+        })}
       </Grid>
     </Container>
   );

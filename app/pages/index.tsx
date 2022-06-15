@@ -3,19 +3,7 @@ import styled from 'styled-components';
 
 import ListFavorites from '../components/ListPages';
 import Container from '../components/Container';
-
-import useClock from '../hooks/useClock';
-
-import { IDate } from '../utils/interfaces';
-
-const Time = styled.time`
-  color: #fff6;
-  display: block;
-  font-size: 5rem;
-  font-weight: 800;
-  margin: 0 auto 5rem auto;
-  width: max-content;
-`;
+import Clock from '../components/Clock';
 
 const Center = styled(motion.div)`
   display: flex;
@@ -23,25 +11,15 @@ const Center = styled(motion.div)`
   align-items: center;
   justify-content: center;
   height: 100%;
+  gap: 5rem;
 `;
 
-const Clock = ({ date }: { date: IDate | null }) => {
-  return date ? (
-    <Time>
-      {date.hh} : {date.mm} : {date.ss}
-    </Time>
-  ) : (
-    <Time>HH : MM : SS</Time>
-  );
-};
-
 function Landing(): JSX.Element {
-  const date = useClock();
-
   return (
     <Container>
       <Center>
-        <Clock date={date} />
+        <Clock />
+
         <ListFavorites />
       </Center>
     </Container>

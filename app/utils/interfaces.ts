@@ -8,3 +8,9 @@ export interface IDate {
   MM: string;
   YY: string;
 }
+
+export interface IPage {
+  _id?: string;
+  name: string;
+  url: string;
+}

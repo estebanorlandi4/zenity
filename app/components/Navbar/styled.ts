@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
   display: flex;
-  height: 100vh;
+  height: 100%;
+  width: 15rem;
   background: #1e2025;
   padding: 1rem 1rem;
   color: #fff;
@@ -26,6 +30,7 @@ export const Nav = styled.nav`
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+    width: 100%;
   }
 
   h1 {
@@ -39,6 +44,10 @@ export const Nav = styled.nav`
 
 export const Section = styled.div`
   margin: 1rem 0;
+  width: 100%;
+  ul {
+    width: 100%;
+  }
 
   .section-name {
     font-size: 0.65rem;
@@ -51,7 +60,7 @@ export const Section = styled.div`
 
   li {
     margin: 0.5rem 0;
-    min-width: 15rem;
+    width: 100%;
   }
 
   a {

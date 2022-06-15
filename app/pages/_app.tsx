@@ -4,15 +4,24 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import { GlobalStyles } from '../utils/styled';
 
-const MainContent = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-`;
-
 const Right = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
   background: #1e2025;
   padding: 1rem;
   width: 15rem;
+  height: 100%;
+
+  @media screen and (min-width: 50rem) {
+    display: block;
+  }
+`;
+
+const Main = styled.main`
+  padding: 0 15rem;
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -25,13 +34,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MainContent>
-        <Navbar />
-        <main>
-          <Component {...pageProps} />
-        </main>
-        <Right>Right</Right>
-      </MainContent>
+      <Navbar />
+
+      <Main>
+        <Component {...pageProps} />
+      </Main>
+
+      <Right>Right</Right>
     </>
   );
 }

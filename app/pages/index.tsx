@@ -10,7 +10,7 @@ const Center = styled(motion.div)`
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
   gap: 5rem;
 `;
 
@@ -19,9 +19,9 @@ function Landing(): JSX.Element {
     <Container>
       <Center>
         <Clock />
-
         <ListFavorites />
       </Center>
+      <div>hola</div>
     </Container>
   );
 }

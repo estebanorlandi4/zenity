@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   * {
+    outline: none;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -26,5 +27,10 @@ export const GlobalStyles = createGlobalStyle`
   
   ul {
     list-style: none;
+  }
+
+  input {
+    background-color: transparent;
+    border: none;
   }
 `;

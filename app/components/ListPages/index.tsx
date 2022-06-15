@@ -1,57 +1,77 @@
-import Image from 'next/image';
-import { Container, EmptyPage, Grid, Page } from './styled';
+import { Container, EmptyContainer, Grid } from './styled';
 
-import mockup from '../../mockups/pages.json';
-import { useEffect, useState } from 'react';
-import { getLocal, removeLocal, saveLocal } from '../../utils/storage';
+import useFavorites from '../../hooks/useFavorites';
+import Page from '../Page';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { IPage } from '../../utils/interfaces';
+import Input from '../Input';
+import { Button } from '../Button';
+import { FormContainer } from '../Forms';
 
-const Img = ({ url }: any) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const onLoad = () => setIsLoading(false);
-
-  return (
-    <div className="image-container">
-      <Image
-        className={`image ${isLoading ? 'loading' : ''}`}
-        layout="fill"
-        src={`https://icon.horse/icon/${url}`}
-        alt=""
-        loading="lazy"
-        onLoad={onLoad}
-      />
-    </div>
-  );
+const initialState = {
+  name: '',
+  url: '',
 };
 
 function ListFavorites() {
-  const handleSite = (index: number) => {
-    console.log(index);
-  };
+  const { favorites, addSite, removeSite } = useFavorites();
+  const [show, setShow] = useState(false);
+  const [inputs, setInputs] = useState<IPage>(initialState);
 
-  useEffect(() => {}, []);
+  const toggleForm = () => setShow((old) => !old);
+
+  const onChange = ({
+    target: { name, value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setInputs((old) => ({ ...old, [name]: value }));
+  };
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    addSite(inputs);
+    setInputs(initialState);
+    toggleForm();
+  };
 
   return (
     <Container>
+      {show && (
+        <FormContainer onSubmit={onSubmit}>
+          <form>
+            <button type="button" onClick={toggleForm} className="close">
+              X
+            </button>
+            <h4>Create new Site</h4>
+            <Input
+              name="name"
+              value={inputs.name}
+              onChange={onChange}
+              label="Name"
+              autoComplete="off"
+              autoFocus
+            />
+            <Input
+              name="url"
+              value={inputs.url}
+              onChange={onChange}
+              label="URL"
+              autoComplete="off"
+            />
+            <Button type="submit">Create site</Button>
+          </form>
+        </FormContainer>
+      )}
+
       <Grid>
         {Array.from({ length: 8 }).map((_, i) => {
-          const favorite = mockup.favorites[i];
+          const favorite = favorites ? favorites[i] : null;
           if (!favorite)
             return (
-              <EmptyPage key={i}>
-                <button onClick={() => handleSite(i)}>Add Site</button>
-              </EmptyPage>
+              <EmptyContainer key={i}>
+                <button onClick={toggleForm}>Add Site</button>
+              </EmptyContainer>
             );
 
-          const { name, url } = favorite;
-          return (
-            <Page key={i}>
-              <a href={`https://${url}`}>
-                <Img url={url} />
-                <p>{name}</p>
-              </a>
-            </Page>
-          );
+          return <Page key={i} removeSite={removeSite} site={favorite} />;
         })}
       </Grid>
     </Container>

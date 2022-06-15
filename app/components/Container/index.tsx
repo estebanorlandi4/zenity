@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled(motion.div)`
   height: 100%;
-  padding: 1rem 7vw;
+  width: 100%;
   color: #fff;
 `;
 

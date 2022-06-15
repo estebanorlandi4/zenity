@@ -30,7 +30,7 @@ function Clock() {
   return (
     <Container>
       <time>
-        {date.hh} : {date.mm} : {date.ss}
+        {date.hh} : {date.mm}
       </time>
       <p>
         {days[Number(date.DD)]} {months[Number(date.MM)]} {date.dd}

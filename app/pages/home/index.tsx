@@ -1,9 +1,4 @@
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-
-const Main = styled(motion.main)`
-  background-color: red;
-`;
+import Container from '../../components/Container';
 
 const variants = {
   visible: {
@@ -18,9 +13,9 @@ const variants = {
 
 function Home() {
   return (
-    <Main initial="hidden" animate="visible" variants={variants}>
+    <Container initial="hidden" animate="visible" variants={variants}>
       asdf
-    </Main>
+    </Container>
   );
 }
 

@@ -1,39 +1,51 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Navbar from '../components/Navbar';
-import styles from '../styles/Home.module.css';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
-const Landing: NextPage = () => {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Zenity</title>
-        <meta name="description" content="Favorites manager" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import ListFavorites from '../components/ListPages';
+import Container from '../components/Container';
 
-      <p>Este fondo es rojo</p>
+import useClock from '../hooks/useClock';
 
-      <style jsx>
-        {`
-          p {
-            color: #fff;
-            padding: 1rem;
+import { IDate } from '../utils/interfaces';
 
-            background: red;
-            background: #f00;
-            background: rgb(255, 0, 0);
-            background: hsl(0, 100%, 0);
+const Time = styled.time`
+  color: #fff6;
+  display: block;
+  font-size: 5rem;
+  font-weight: 800;
+  margin: 0 auto 5rem auto;
+  width: max-content;
+`;
 
-            background: hsla(0, 100%, 0, 1);
-            background: rgba(0, 100%, 0, 1);
-            background: #f00f;
-            background: linear-gradient(0deg, #f00, #f00);
-          }
-        `}
-      </style>
-    </div>
+const Center = styled(motion.div)`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const Clock = ({ date }: { date: IDate | null }) => {
+  return date ? (
+    <Time>
+      {date.hh} : {date.mm} : {date.ss}
+    </Time>
+  ) : (
+    <Time>HH : MM : SS</Time>
   );
 };
+
+function Landing(): JSX.Element {
+  const date = useClock();
+
+  return (
+    <Container>
+      <Center>
+        <Clock date={date} />
+        <ListFavorites />
+      </Center>
+    </Container>
+  );
+}
 
 export default Landing;

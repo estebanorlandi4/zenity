@@ -1,4 +1,4 @@
-import Container from '../../components/Container';
+import Container from 'front/components/Container';
 
 function Settings() {
   return (

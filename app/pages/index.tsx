@@ -1,11 +1,10 @@
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import ListFavorites from '../components/ListPages';
-import Container from '../components/Container';
-import Clock from '../components/Clock';
+import ListFavorites from 'front/components/ListPages';
+import Container from 'front/components/Container';
+import Clock from 'front/components/Clock';
 
-const Center = styled(motion.div)`
+const Center = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;

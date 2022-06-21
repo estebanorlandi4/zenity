@@ -9,8 +9,13 @@ export interface IDate {
   YY: string;
 }
 
-export interface IPage {
+export interface IShortcut {
   _id?: string;
   name: string;
   url: string;
+}
+
+export interface ITag {
+  value: string;
+  id: string;
 }

@@ -1,44 +1,9 @@
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
+import { routes } from './routes';
 
 import { Nav, Section } from './styled';
-
-import { SiWhatsapp } from 'react-icons/si';
-import { DiGithubBadge } from 'react-icons/di';
-import { BsGearFill } from 'react-icons/bs';
-import { MdDashboard } from 'react-icons/md';
-import { BiGlobe } from 'react-icons/bi';
-
-const routes = {
-  top: {
-    menu: [
-      { label: 'Dashboard', path: '/', icon: <MdDashboard className="icon" /> },
-      { label: 'Sites', path: '/sites', icon: <BiGlobe className="icon" /> },
-    ],
-    settings: [
-      {
-        label: 'Settings',
-        path: '/settings',
-        icon: <BsGearFill className="icon" />,
-      },
-    ],
-  },
-  bottom: {
-    media: [
-      {
-        label: 'GitHub',
-        path: 'https://github.com',
-        icon: <DiGithubBadge className="icon" />,
-      },
-      {
-        label: 'Whatsapp',
-        path: 'https://web.whatsapp.com',
-        icon: <SiWhatsapp className="icon" />,
-      },
-    ],
-  },
-};
 
 function Navbar() {
   const router = useRouter();
@@ -51,7 +16,6 @@ function Navbar() {
 
           {Object.entries(routes.top).map(([section, paths]) => (
             <Section key={section}>
-              <p className="section-name">{section}</p>
               <ul>
                 {paths.map(({ label, path, icon }) => (
                   <li key={label}>
@@ -69,7 +33,6 @@ function Navbar() {
 
         {Object.entries(routes.bottom).map(([section, paths]) => (
           <Section key={section}>
-            <p className="section-name">{section}</p>
             <ul>
               {paths.map(({ label, path, icon }) => (
                 <li key={label}>

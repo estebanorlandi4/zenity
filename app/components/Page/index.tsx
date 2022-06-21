@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { IPage } from '../../utils/interfaces';
+import { IPage } from 'utils/interfaces';
 import { Container } from './styled';
 
 interface Props {
@@ -35,7 +35,7 @@ function Page({ removeSite, site }: Props) {
       <button onClick={() => removeSite(_id || '')} className="remove">
         <AiOutlineClose />
       </button>
-      <a href={`https://${url}`}>
+      <a href={`https://${url}`} target="_blank" rel="noreferrer">
         <Img url={url} />
         <p>{name}</p>
       </a>

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const Nav = styled.nav`
-  position: fixed;
+  position: relative;
   left: 0;
   top: 0;
   z-index: 999;
   display: flex;
   height: 100%;
-  width: 15rem;
+  width: max-content;
   background: #1e2025;
-  padding: 1rem 1rem;
+  padding: 0 0.75rem;
   color: #fff;
 
   .menu-button {
@@ -27,14 +27,19 @@ export const Nav = styled.nav`
   }
 
   .container {
+    position: sticky;
+    top: 0;
+    left: 0;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
     width: 100%;
+    height: 100vh;
   }
 
   h1 {
-    margin: 0.5rem 0 2rem 0.5rem;
+    margin: 1.5rem 0 2rem 0;
+    font-size: 1.15rem;
   }
 
   .bottom {
@@ -43,30 +48,36 @@ export const Nav = styled.nav`
 `;
 
 export const Section = styled.div`
-  margin: 1rem 0;
+  position: relative;
   width: 100%;
-  ul {
+  padding: 0.5rem 0;
+
+  ::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff1;
     width: 100%;
+    height: 1px;
   }
 
-  .section-name {
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #fff8;
-    margin: 0 0.75rem;
+  ul {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 
   li {
     margin: 0.5rem 0;
-    width: 100%;
+    width: max-content;
   }
 
   a {
     display: flex;
     align-items: center;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem;
     gap: 0.5rem;
 
     font-size: 0.8rem;
@@ -78,8 +89,9 @@ export const Section = styled.div`
     transition: all 0.25s;
 
     .icon {
-      width: 1.5rem;
-      height: 1.5rem;
+      --size: 1rem;
+      width: var(--size);
+      height: var(--size);
     }
 
     :hover {

@@ -4,27 +4,13 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import Navbar from 'front/components/Navbar';
-import { GlobalStyles } from 'front/utils/styled';
-
-const Right = styled.div`
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 999;
-  background: #1e2025;
-  padding: 1rem;
-  width: 15rem;
-  height: 100%;
-
-  @media screen and (min-width: 50rem) {
-    display: block;
-  }
-`;
+import Navbar from 'components/Navbar';
+import { GlobalStyles } from 'utils/styled';
 
 const Main = styled.main`
-  padding: 0 15rem;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -35,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     apiTest();
   }, []);
+
   return (
     <>
       <GlobalStyles />
@@ -44,13 +31,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
-
       <Main>
+        <Navbar />
+
         <Component {...pageProps} />
       </Main>
-
-      <Right>Right</Right>
     </>
   );
 }

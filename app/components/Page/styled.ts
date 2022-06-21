@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.li`
   position: relative;
+  padding: 1rem;
+  height: 100%;
 
   .remove {
     position: absolute;

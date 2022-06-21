@@ -1,5 +1,6 @@
 import { HTMLProps } from 'react';
 import styled from 'styled-components';
+import Tags from '../Tags';
 
 const Label = styled.div`
   display: flex;
@@ -28,13 +29,20 @@ const Label = styled.div`
 
 interface Props extends HTMLProps<HTMLInputElement> {
   label?: string;
+  value?: any;
 }
 
-function Input({ label, ...props }: Props) {
+const inputTypes: { [key: string]: React.FC } = {
+  tags: Tags,
+};
+
+function Input({ label, type: inputType, ...props }: Props) {
+  const InputComponent = (inputType && inputTypes[inputType]) || 'input';
+
   return (
     <Label>
       <span className="label">{label}</span>
-      <input type="text" {...props} />
+      <InputComponent type="text" {...props} />
     </Label>
   );
 }

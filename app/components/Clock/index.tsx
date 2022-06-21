@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import useClock from '../../hooks/useClock';
-import { days, months } from '../../utils/date';
+import useClock from 'hooks/useClock';
+import { days, months } from 'utils/date';
 
 const Container = styled.div`
   display: flex;
@@ -8,15 +8,15 @@ const Container = styled.div`
   align-items: center;
 
   time {
-    color: #fff6;
+    opacity: 0.35;
     display: block;
-    font-size: 5rem;
+    font-size: calc(3rem + 2vw);
     font-weight: 800;
     margin: 0 auto;
     width: max-content;
   }
   p {
-    color: #fff4;
+    opacity: 0.25;
     font-weight: 300;
     font-size: 0.9rem;
     letter-spacing: 1px;
@@ -26,14 +26,13 @@ const Container = styled.div`
 function Clock() {
   const date = useClock();
 
-  if (!date) return null;
   return (
     <Container>
-      <time>
-        {date.hh} : {date.mm}
-      </time>
+      <time>{date ? `${date.hh} : ${date.mm}` : '-- : --'}</time>
       <p>
-        {days[Number(date.DD)]} {months[Number(date.MM)]} {date.dd}
+        {date
+          ? `${days[Number(date.DD)]} ${months[Number(date.MM)]} ${date.dd}`
+          : 'day month year'}
       </p>
     </Container>
   );

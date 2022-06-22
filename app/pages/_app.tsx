@@ -9,8 +9,7 @@ import { GlobalStyles } from 'utils/styled';
 
 const Main = styled.main`
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -33,7 +32,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <Main>
         <Navbar />
-
         <Component {...pageProps} />
       </Main>
     </>

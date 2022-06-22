@@ -10,18 +10,27 @@ const Center = styled.div`
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  height: 100%;
+  height: 100vh;
 `;
 
-function Landing(): JSX.Element {
+interface Props {
+  time: number;
+}
+
+function Landing({ time }: Props) {
   return (
     <Container>
       <Center>
-        <Clock />
+        <Clock server={time} />
         <ListShortcuts />
       </Center>
     </Container>
   );
+}
+
+export async function getServerSideProps() {
+  const time = new Date().getTime();
+  return { props: { time } };
 }
 
 export default Landing;

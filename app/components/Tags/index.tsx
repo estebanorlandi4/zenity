@@ -21,12 +21,23 @@ const Container = styled.div`
   }
 `;
 
+type Change = ChangeEvent<HTMLInputElement>;
 function Tags({ value }: TagsProps) {
+  const [input, setInput] = useState('');
   const [tags, setTags] = useState<ITag[]>(value || []);
 
-  const onChange = ({
-    target: { name, value },
-  }: ChangeEvent<HTMLInputElement>) => {};
+  const onChange = ({ target: { name, value } }: Change) => {
+    if ([',', ' '].includes(value[value.length - 1])) {
+      const newval = {
+        value: value.split(',')[0],
+        id: Math.random().toString(),
+      };
+
+      if (!newval.value.trim()) return;
+      setTags((old) => [...old, newval]);
+      setInput('');
+    } else setInput(value);
+  };
 
   return (
     <Container>
@@ -35,7 +46,7 @@ function Tags({ value }: TagsProps) {
           <li key={id}>{value}</li>
         ))}
       </ul>
-      <input onChange={onChange} />
+      <input value={input} onChange={onChange} />
     </Container>
   );
 }

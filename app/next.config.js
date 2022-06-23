@@ -4,7 +4,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  images: { domains: ['picsum.photos', 'icon.horse'] },
+  images: {
+    domains: ['picsum.photos', 'icon.horse', 'avatars.githubusercontent.com'],
+  },
 };
 
 module.exports = nextConfig;

@@ -1,11 +1,6 @@
 import Input from 'components/Input';
-import { ITag } from 'utils/interfaces';
 import Container from 'components/Container';
 import { FormEvent } from 'react';
-
-const randomId = () => `${Math.random().toString()}-${new Date().getTime()}`;
-
-const defTags: ITag[] = [{ value: 'Icons', id: randomId() }];
 
 function Sites() {
   const onSubmit = (e: FormEvent) => {

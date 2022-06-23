@@ -1,11 +1,11 @@
-import axios from 'axios';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Navbar from 'components/Navbar';
 import { GlobalStyles } from 'utils/styled';
+
+import { SessionProvider } from 'next-auth/react';
 
 const Main = styled.main`
   min-height: 100vh;
@@ -13,16 +13,8 @@ const Main = styled.main`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    const apiTest = async () => {
-      console.log((await axios('/api/hello')).data);
-    };
-
-    apiTest();
-  }, []);
-
   return (
-    <>
+    <SessionProvider>
       <GlobalStyles />
       <Head>
         <title>Zenity</title>
@@ -34,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Navbar />
         <Component {...pageProps} />
       </Main>
-    </>
+    </SessionProvider>
   );
 }
 

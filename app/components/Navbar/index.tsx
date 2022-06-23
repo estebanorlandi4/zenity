@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { routes } from './routes';
 
 import { Nav, Section } from './styled';
+import Avatar from 'components/Avatar';
 
 function Navbar() {
   const router = useRouter();
@@ -21,7 +22,7 @@ function Navbar() {
                   <li key={label}>
                     <Link href={path}>
                       <a className={router.pathname === path ? 'active' : ''}>
-                        {icon} {label}
+                        {icon}
                       </a>
                     </Link>
                   </li>
@@ -31,19 +32,25 @@ function Navbar() {
           ))}
         </div>
 
-        {Object.entries(routes.bottom).map(([section, paths]) => (
-          <Section key={section}>
-            <ul>
-              {paths.map(({ label, path, icon }) => (
-                <li key={label}>
-                  <a href={path} target="_blank" rel="noreferrer">
-                    {icon} {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+        <div>
+          {Object.entries(routes.bottom).map(([section, paths]) => (
+            <Section key={section}>
+              <ul>
+                {paths.map(({ label, path, icon }) => (
+                  <li key={label}>
+                    <a href={path} target="_blank" rel="noreferrer">
+                      {icon}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ))}
+
+          <Section>
+            <Avatar />
           </Section>
-        ))}
+        </div>
       </div>
     </Nav>
   );

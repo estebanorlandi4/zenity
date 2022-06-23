@@ -8,10 +8,6 @@ const config = NextAuth({
     GithubProvider({
       clientId: GH_ID,
       clientSecret: GH_SECRET,
-      async request({ client, tokens }) {
-        const profile = await client.userinfo(tokens);
-        console.log(profile);
-      },
     }),
   ],
   pages: {

@@ -38,17 +38,6 @@ export const routes: Routes = {
     ],
   },
   bottom: {
-    media: [
-      {
-        label: 'GitHub',
-        path: 'https://github.com',
-        icon: <DiGithubBadge size={22} />,
-      },
-      {
-        label: 'Whatsapp',
-        path: 'https://web.whatsapp.com',
-        icon: <SiWhatsapp size={20} className="icon" />,
-      },
-    ],
+    media: [],
   },
 };

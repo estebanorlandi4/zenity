@@ -3,31 +3,29 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 import styled from 'styled-components';
 import { BiLogIn } from 'react-icons/bi';
-import { useEffect } from 'react';
 import { Container } from './styled';
 
 const Button = styled.button`
   width: 100%;
   padding: 1rem 0;
-  display: flex;
-  gap: 0.25rem;
+  display: grid;
+  place-items: center;
+  > * {
+    transform: translate(-3px, 0);
+  }
 `;
 
+const Login = () => (
+  <Button onClick={() => signIn()}>
+    <BiLogIn size={18} />
+  </Button>
+);
+
 function Avatar() {
-  const userSession = useSession();
-  const { data: session, status } = userSession;
-  console.log(userSession);
+  const { data: session, status } = useSession();
+  console.log(session);
 
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
-
-  if (!session)
-    return (
-      <Button onClick={() => signIn()}>
-        <BiLogIn size={18} /> login
-      </Button>
-    );
+  if (!session) return <Login />;
   return (
     <Container>
       <button onClick={() => signOut()}>

@@ -33,7 +33,8 @@ function Navbar() {
         </div>
 
         <div>
-          {Object.entries(routes.bottom).map(([section, paths]) => (
+          {/*
+          Object.entries(routes.bottom).map(([section, paths]) => (
             <Section key={section}>
               <ul>
                 {paths.map(({ label, path, icon }) => (
@@ -45,7 +46,8 @@ function Navbar() {
                 ))}
               </ul>
             </Section>
-          ))}
+          ))
+            */}
 
           <Section>
             <Avatar />

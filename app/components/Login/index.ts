@@ -1,27 +1,55 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  flex-flow: row;
-  gap: 1rem;
-  background-color: #0e0e15;
   height: max-content;
-  padding: 1rem;
-  margin: 10vh auto;
   border-radius: 0.5rem;
+  width: 100%;
+
+  .form {
+    max-width: 20rem;
+    margin: 10vh auto;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem 0;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .providers {
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    gap: 1rem;
+    padding: 0.5rem 0 0 0;
+  }
+  .random-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: bottom;
+  }
+  .decoration {
+    display: block;
+    position: relative;
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: 55vh;
+  }
 `;
 
 export const Button = styled.button`
   display: grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3.5rem;
+  height: 3rem;
   border-radius: 5px;
   font-weight: bold;
 
   ${({ bg }: { bg: string }) =>
     bg &&
     css`
-      background: ${bg};
+      color: ${bg};
     `};
+  background: #fff1;
 `;

@@ -1,42 +1,30 @@
 import Image from 'next/image';
-import { signIn, signOut, useSession } from 'next-auth/react';
 
-import styled from 'styled-components';
-import { BiLogIn } from 'react-icons/bi';
 import { Container } from './styled';
 
-const Button = styled.button`
-  width: 100%;
-  padding: 1rem 0;
-  display: grid;
-  place-items: center;
-  > * {
-    transform: translate(-3px, 0);
-  }
-`;
+interface User {
+  email?: string | null;
+  image?: string | null;
+  name?: string | null;
+}
 
-const Login = () => (
-  <Button onClick={() => signIn()}>
-    <BiLogIn size={18} />
-  </Button>
-);
+interface Props {
+  user?: User | null;
+}
 
-function Avatar() {
-  const { data: session, status } = useSession();
-  console.log(session);
-
-  if (!session) return <Login />;
+function Avatar({ user }: Props) {
   return (
     <Container>
-      <button onClick={() => signOut()}>
+      <span className="username">{user?.name}</span>
+      <div className="image-container">
         <Image
           width="50px"
           height="50px"
-          src={session?.user?.image || 'https://picsum.photos/200/300'}
+          src={user?.image || 'https://picsum.photos/200/300'}
           alt=""
           className="avatar-image"
         />
-      </button>
+      </div>
     </Container>
   );
 }

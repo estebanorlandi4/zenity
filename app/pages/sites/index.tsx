@@ -14,7 +14,6 @@ function Sites() {
       <form onSubmit={onSubmit}>
         <Input label="Name" name="name" />
         <Input label="URL" name="url" />
-        <Input label="Tags" name="tags" type="tags" />
         <button>submit</button>
       </form>
     </Container>

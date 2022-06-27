@@ -5,7 +5,12 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['picsum.photos', 'icon.horse', 'avatars.githubusercontent.com'],
+    domains: [
+      'picsum.photos',
+      'icon.horse',
+      'avatars.githubusercontent.com',
+      'lh3.googleusercontent.com',
+    ],
   },
 };
 

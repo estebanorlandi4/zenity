@@ -4,7 +4,7 @@ import { IDate } from '../utils/interfaces';
 const addZero = (value: number): string =>
   value < 10 ? `0${value}` : String(value);
 
-const parseDate = (server?: number): IDate => {
+const parseDate = (): IDate => {
   const date = new Date();
 
   const hh: string = addZero(date.getHours());
@@ -19,7 +19,7 @@ const parseDate = (server?: number): IDate => {
   return { hh, mm, ss, dd, DD, MM, YY };
 };
 
-function useClock(server: number): IDate | null {
+function useClock(): IDate | null {
   const [date, setDate] = useState<IDate | null>(null);
 
   useEffect(() => {

@@ -1,57 +1,41 @@
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
-import { useRouter } from 'next/router';
 import { routes } from './routes';
-
-import { Nav, Section } from './styled';
 import Avatar from 'components/Avatar';
+import { Nav, NavMenu } from './styled';
 
 function Navbar() {
-  const router = useRouter();
+  const { data: session, status } = useSession();
 
+  const isLoading = status === 'loading';
   return (
     <Nav>
       <div className="container">
-        <div>
-          <h1>Zenity</h1>
-
-          {Object.entries(routes.top).map(([section, paths]) => (
-            <Section key={section}>
-              <ul>
-                {paths.map(({ label, path, icon }) => (
-                  <li key={label}>
-                    <Link href={path}>
-                      <a className={router.pathname === path ? 'active' : ''}>
-                        {icon}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Section>
+        <NavMenu>
+          {routes.map(({ label, path, icon }: any) => (
+            <Link href={path} key={path}>
+              <a className="nav-link">
+                {icon} {label}
+              </a>
+            </Link>
           ))}
-        </div>
+        </NavMenu>
 
-        <div>
-          {/*
-          Object.entries(routes.bottom).map(([section, paths]) => (
-            <Section key={section}>
-              <ul>
-                {paths.map(({ label, path, icon }) => (
-                  <li key={label}>
-                    <a href={path} target="_blank" rel="noreferrer">
-                      {icon}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Section>
-          ))
-            */}
-
-          <Section>
-            <Avatar />
-          </Section>
+        <div className="right">
+          {isLoading ? 'loading' : null}
+          {!isLoading && session ? (
+            <Link href="/auth/logout">
+              <a>
+                <Avatar user={session?.user} />
+              </a>
+            </Link>
+          ) : null}
+          {!isLoading && !session ? (
+            <Link href="/auth/login">
+              <a>Login</a>
+            </Link>
+          ) : null}
         </div>
       </div>
     </Nav>

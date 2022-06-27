@@ -1,36 +1,48 @@
 import styled from 'styled-components';
 
-import ListShortcuts from 'components/ListShortcuts';
-import Container from 'components/Container';
 import Clock from 'components/Clock';
+import ListShortcuts from 'components/ListShortcuts';
+import Navbar from 'components/Navbar';
+import useRepos from 'hooks/github/useRepos';
+import ExtLink from 'components/ExtLink';
+import Repos from 'components/Repos';
 
-const Center = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-  height: 100vh;
+const Container = styled.div`
+  min-height: 100vh;
+
+  .center {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+
+  .shortcuts {
+    display: flex;
+    flex-flow: column;
+    gap: 10vh;
+    margin: 1rem 0 0 0;
+  }
 `;
 
-interface Props {
-  time: number;
-}
-
-function Landing({ time }: Props) {
+function Landing() {
+  const { repos } = useRepos();
+  console.log(repos);
   return (
     <Container>
-      <Center>
-        <Clock server={time} />
-        <ListShortcuts />
-      </Center>
+      <Navbar />
+      <div className="center">
+        <div className="shortcuts">
+          <Clock />
+          <ListShortcuts />
+        </div>
+      </div>
+
+      <section>
+        <h2>Repos</h2>
+        <Repos />
+      </section>
     </Container>
   );
-}
-
-export async function getServerSideProps() {
-  const time = new Date().getTime();
-  return { props: { time } };
 }
 
 export default Landing;

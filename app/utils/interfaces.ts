@@ -1,3 +1,6 @@
+import { Types } from 'mongoose';
+import { NextApiRequest, NextApiResponse } from 'next';
+
 export interface IDate {
   hh: string;
   mm: string;
@@ -18,4 +21,19 @@ export interface IShortcut {
 export interface ITag {
   value: string;
   id: string;
+}
+
+export interface IRoute {
+  req: NextApiRequest;
+  res: NextApiResponse;
+}
+
+export interface IMethods {
+  [method: string]: (_: IRoute) => any;
+}
+
+export interface ISite {
+  user: Types.ObjectId;
+  url: string;
+  name: string;
 }

@@ -23,12 +23,8 @@ const Container = styled.div`
   }
 `;
 
-interface Props {
-  server: number;
-}
-
-function Clock({ server }: Props) {
-  const date = useClock(server);
+function Clock() {
+  const date = useClock();
 
   return (
     <Container>

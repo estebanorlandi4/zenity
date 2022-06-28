@@ -1,14 +1,12 @@
 import { signOut, useSession } from 'next-auth/react';
-import Router from 'next/router';
 import { useEffect } from 'react';
 
 function LogOut() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session) signOut();
-    else Router.push('/');
-  }, [session]);
+    signOut();
+  }, []);
 
   return <div>LogOut</div>;
 }

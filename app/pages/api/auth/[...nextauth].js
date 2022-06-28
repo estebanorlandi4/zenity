@@ -1,15 +1,7 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
 
-const {
-  GH_ID,
-  GH_SECRET,
-  GOOGLE_ID,
-  GOOGLE_SECRET,
-  NEXTAUTH_URL,
-  MONGODB_URI,
-} = process.env;
+const { GH_ID, GH_SECRET, NEXTAUTH_URL, MONGODB_URI } = process.env;
 
 const config = NextAuth({
   session: {
@@ -19,6 +11,8 @@ const config = NextAuth({
     GithubProvider({
       clientId: GH_ID,
       clientSecret: GH_SECRET,
+      authorization:
+        'https://github.com/login/oauth/authorize?scope=read:user+user:email+repo',
     }),
   ],
   pages: {

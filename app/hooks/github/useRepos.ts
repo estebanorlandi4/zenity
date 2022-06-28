@@ -9,12 +9,17 @@ function useRepos() {
   useEffect(() => {
     const promise = async () => {
       if (repos.length) return null;
-      const { data } = await axios('https://api.github.com/user/repos', {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-          Authorization: `token ${session?.accessToken}`,
+      const { data, headers } = await axios(
+        `https://api.github.com/user/repos`,
+        {
+          headers: {
+            accept: 'application/vnd.github.v3+json',
+            Authorization: `token ${session?.accessToken}`,
+          },
         },
-      });
+      );
+
+      console.log({ data, headers });
       setRepos(data);
     };
     if (session) promise();

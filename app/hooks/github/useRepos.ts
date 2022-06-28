@@ -19,7 +19,6 @@ function useRepos() {
         },
       );
 
-      console.log({ data, headers });
       setRepos(data);
     };
     if (session) promise();

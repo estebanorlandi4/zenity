@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.ul`
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
   max-width: 30rem;
   margin: 1rem auto;
 
@@ -18,8 +21,8 @@ export const Repo = styled.li<any>`
   justify-content: space-between;
   flex-flow: row;
   gap: 1rem;
-  padding: 1rem 0;
   border-bottom: 1px solid #fff1;
+  padding: 0 0 1rem 0;
 
   .repo-left {
     display: flex;
@@ -32,21 +35,29 @@ export const Repo = styled.li<any>`
     display: flex;
     flex-flow: column;
     align-items: flex-end;
+    gap: 0.5rem;
+    justify-content: space-between;
+    height: 100%;
     button {
       text-align: right;
     }
   }
 
   .repo-owner {
-    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #aaa;
     font-weight: 300;
     font-size: 0.8rem;
   }
 
+  .avatar-container {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   .repo-avatar {
     display: block;
-    width: 1rem;
-    height: 1rem;
     border-radius: 100%;
   }
 

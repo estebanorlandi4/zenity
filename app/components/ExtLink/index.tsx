@@ -1,7 +1,7 @@
 import { HTMLProps } from 'react';
 
 interface Props extends HTMLProps<HTMLAnchorElement> {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }
 
 function ExtLink({ children, ...props }: Props) {

@@ -1,9 +1,13 @@
+import Navbar from 'components/Navbar';
 import Repos from 'components/Repos';
 
 function Github() {
   return (
     <div>
-      <Repos />
+      <Navbar />
+      <main>
+        <Repos />
+      </main>
     </div>
   );
 }

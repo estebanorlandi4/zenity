@@ -1,35 +1,46 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
-import {
-  Endpoints,
-  GetResponseDataTypeFromEndpointMethod,
-} from '@octokit/types';
+import { Endpoints } from '@octokit/types';
 import { Octokit } from '@octokit/rest';
 
-function getHeaders(token: any) {
-  return {
-    headers: {
-      accept: 'application/vnd.github.v3+json',
-      Authorization: `token ${token}`,
-    },
-  };
-}
-
-type ListRepos = Endpoints['GET /user/repos']['response']['data'];
-
-interface IListRepos extends ListRepos {
+interface CustomProps {
   languages?: string[];
 }
 
-function useRepos() {
+type ListRepos = (Endpoints['GET /user/repos']['response']['data'] &
+  CustomProps)[];
+
+const testApi = async (octokit: Octokit) => {
+  // const { data } = await octokit.request('GET /user');
+  const { data } = await octokit.request('GET /emojis');
+
+  const urls = new Set();
+
+  Object.entries(data).map(([_, url]: [name: string, url: string]) => {
+    const arr = url.split('/');
+
+    arr.pop();
+
+    console.log(Array.from(urls.add(arr.join('/'))));
+  });
+};
+
+interface Props {
+  test?: boolean;
+}
+function useRepos(props?: Props) {
+  const { test } = props ?? {};
+
   const { data: session } = useSession();
-  const [repos, setRepos] = useState<IListRepos[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [repos, setRepos] = useState<ListRepos>([]);
 
   useEffect(() => {
     const promise = async () => {
       if (!session) return null;
+
+      setIsLoading(true);
 
       const { accessToken: auth } = session;
 
@@ -52,14 +63,16 @@ function useRepos() {
           return { ...current, languages: Object.keys(languages) };
         }),
       ).then((value) => {
-        console.log(value);
         setRepos(value);
+        setIsLoading(false);
       });
+
+      if (test) testApi(octokit);
     };
     promise();
-  }, [session]);
+  }, [session, test]);
 
-  return { repos };
+  return { repos, isLoading };
 }
 
 export default useRepos;

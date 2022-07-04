@@ -1,14 +1,21 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { IPage } from 'utils/interfaces';
+import { IShortcut } from 'utils/interfaces';
 import { Container } from './styled';
+
+interface ParseProps {
+  url: string;
+}
+const parseURL = ({ url }: ParseProps) => {
+  if (url.includes('/')) return url.split('/')[0];
+  return url;
+};
 
 interface Props {
   removeSite: (id: string) => any;
-  site: IPage;
+  site: IShortcut;
 }
-
 const Img = ({ url }: any) => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +26,7 @@ const Img = ({ url }: any) => {
       <Image
         className={`image ${isLoading ? 'loading' : ''}`}
         layout="fill"
-        src={`https://icon.horse/icon/${url}`}
+        src={`https://icon.horse/icon/${parseURL({ url })}`}
         alt=""
         loading="lazy"
         onLoad={onLoad}

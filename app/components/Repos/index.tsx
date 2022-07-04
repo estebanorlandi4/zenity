@@ -1,22 +1,17 @@
-import useRepos from 'hooks/github/useRepos';
-import { HTMLProps } from 'react';
 import Repo from './repo';
+import useRepos from 'hooks/github/useRepos';
 import { Container } from './styled';
 
-interface Props extends HTMLProps<HTMLLIElement> {}
-
-function Repos({}: Props) {
-  const { repos } = useRepos();
-
-  console.log(repos[1]);
+function Repos() {
+  const { repos, isLoading } = useRepos({ test: true });
 
   return (
     <Container>
       <input type="text" />
 
-      {repos.map((repo: any) => (
-        <Repo key={repo.id} repo={repo} />
-      ))}
+      {true && <p>loading...</p>}
+
+      {false && repos.map((repo: any) => <Repo key={repo.id} repo={repo} />)}
     </Container>
   );
 }

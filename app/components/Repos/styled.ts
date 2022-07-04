@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
 export const Container = styled.ul`
   display: flex;
@@ -16,7 +17,7 @@ export const Container = styled.ul`
 `;
 
 interface Props {}
-export const RepoContainer = styled.li<any>`
+export const RepoContainer = styled(motion.div)`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -105,5 +106,79 @@ export const RepoContainer = styled.li<any>`
     :hover {
       color: #fff;
     }
+  }
+`;
+
+export const PlaceholderContainer = styled(motion.div)`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 4rem;
+
+  :not(:last-child) {
+    border-bottom: 1px solid #fff1;
+  }
+
+  .left,
+  .right {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+  }
+  .right {
+    align-items: flex-end;
+  }
+
+  .name,
+  .visibility,
+  .owner-name,
+  .owner-image,
+  .clone {
+    border-radius: 5px;
+    background-color: #35353e;
+    animation: blink 2s infinite linear;
+    opacity: 1;
+
+    @keyframes blink {
+      from {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .name {
+    width: 8rem;
+    height: 1.35rem;
+  }
+  .visibility {
+    width: 3rem;
+    height: 1.25rem;
+  }
+
+  .owner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .owner-name {
+    width: 7rem;
+    height: 0.75rem;
+  }
+  .owner-image {
+    --size: 1.75rem;
+    border-radius: 100%;
+    width: var(--size);
+    height: var(--size);
+  }
+  .clone {
+    width: 3rem;
+    height: 0.75rem;
   }
 `;

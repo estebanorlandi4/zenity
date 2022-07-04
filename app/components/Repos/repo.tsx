@@ -2,21 +2,40 @@ import Image from 'next/image';
 import ExtLink from 'components/ExtLink';
 
 import { AiOutlineCopy } from 'react-icons/ai';
-import { RepoContainer } from './styled';
+import { PlaceholderContainer, RepoContainer } from './styled';
+import { toClipboard } from 'utils/toClipboard';
+import { MotionProps } from 'framer-motion';
 
-interface Props {
-  repo: any;
+function Placeholder(props: MotionProps) {
+  return (
+    <PlaceholderContainer {...props}>
+      <div className="left">
+        <div className="name"></div>
+        <div className="visibility"></div>
+      </div>
+      <div className="right">
+        <div className="owner">
+          <span className="owner-name"></span>
+          <span className="owner-image"></span>
+        </div>
+        <div className="clone"></div>
+      </div>
+    </PlaceholderContainer>
+  );
 }
 
-function Repo({ repo }: any) {
+interface Props extends MotionProps {
+  repo?: any;
+  placeholder?: boolean;
+}
+
+function Repo({ repo, placeholder, ...others }: Props) {
+  if (placeholder) return <Placeholder {...others} />;
+
   const { languages, clone_url, owner, id, html_url, visibility, name } = repo;
 
-  const clone_repo = (repo: any) => {
-    navigator.clipboard.writeText(repo);
-  };
-
   return (
-    <RepoContainer visibility={visibility}>
+    <RepoContainer {...others}>
       <div className="repo-left">
         <ExtLink className="repo-name" href={html_url}>
           {name}
@@ -49,7 +68,7 @@ function Repo({ repo }: any) {
           </div>
         </ExtLink>
 
-        <button className="repo-clone" onClick={() => clone_repo(clone_url)}>
+        <button className="repo-clone" onClick={() => toClipboard(clone_url)}>
           clone <AiOutlineCopy className="icon" />
         </button>
       </div>

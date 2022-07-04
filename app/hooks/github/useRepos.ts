@@ -13,6 +13,7 @@ type ListRepos = (Endpoints['GET /user/repos']['response']['data'] &
 
 const testApi = async (octokit: Octokit) => {
   // const { data } = await octokit.request('GET /user');
+  return null;
   const { data } = await octokit.request('GET /emojis');
 
   const urls = new Set();

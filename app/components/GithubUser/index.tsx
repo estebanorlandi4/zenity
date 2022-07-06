@@ -28,6 +28,10 @@ function GithubUser() {
 
   const date = new Date(created_at);
 
+  const total_repos = total_private_repos
+    ? total_private_repos + public_repos
+    : public_repos;
+
   return (
     <User>
       <h1>{name}</h1>
@@ -40,7 +44,7 @@ function GithubUser() {
         {login}
         <span>{location}</span>
       </p>
-      <div>{total_private_repos + public_repos}</div>
+      <div>{total_repos}</div>
     </User>
   );
 }

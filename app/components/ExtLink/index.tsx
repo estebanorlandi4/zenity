@@ -3,6 +3,7 @@ import { motion, MotionProps } from 'framer-motion';
 interface Props extends MotionProps {
   children: JSX.Element | JSX.Element[];
   href: string;
+  className: string;
 }
 
 function ExtLink({ children, ...props }: Props) {

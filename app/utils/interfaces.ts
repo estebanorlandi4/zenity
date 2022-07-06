@@ -1,5 +1,8 @@
 import { Types } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ChangeEvent } from 'react';
+
+export interface Change extends ChangeEvent<HTMLInputElement> {}
 
 export interface IDate {
   hh: string;

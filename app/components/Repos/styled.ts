@@ -5,8 +5,8 @@ export const Container = styled.ul`
   display: flex;
   flex-flow: column;
   gap: 1rem;
-  max-width: 30rem;
-  padding: 3.5rem 0;
+  width: 100%;
+  max-width: 40rem;
   margin: 0 auto;
 
   .column {

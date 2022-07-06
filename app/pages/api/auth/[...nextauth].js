@@ -3,6 +3,8 @@ import GithubProvider from 'next-auth/providers/github';
 
 const { GH_ID, GH_SECRET, NEXTAUTH_URL, MONGODB_URI } = process.env;
 
+const SCOPES = ['user', 'repo'].join('+');
+
 const config = NextAuth({
   session: {
     jsw: true,
@@ -11,8 +13,7 @@ const config = NextAuth({
     GithubProvider({
       clientId: GH_ID,
       clientSecret: GH_SECRET,
-      authorization:
-        'https://github.com/login/oauth/authorize?scope=read:user+user:email+repo',
+      authorization: `https://github.com/login/oauth/authorize?scope=${SCOPES}`,
     }),
   ],
   pages: {

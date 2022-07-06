@@ -11,35 +11,31 @@ interface CustomProps {
 type ListRepos = (Endpoints['GET /user/repos']['response']['data'] &
   CustomProps)[];
 
-const testApi = async (octokit: Octokit) => {
-  // const { data } = await octokit.request('GET /user');
-  return null;
-  const { data } = await octokit.request('GET /emojis');
-
-  const urls = new Set();
-
-  Object.entries(data).map(([_, url]: [name: string, url: string]) => {
-    const arr = url.split('/');
-
-    arr.pop();
-
-    console.log(Array.from(urls.add(arr.join('/'))));
-  });
-};
-
-interface Props {
-  test?: boolean;
-}
+interface Props {}
 function useRepos(props?: Props) {
-  const { test } = props ?? {};
-
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [repos, setRepos] = useState<ListRepos>([]);
 
   useEffect(() => {
-    const promise = async () => {
+    const p = async () => {
       if (!session) return null;
+
+      setIsLoading(true);
+
+      const { accessToken: auth } = session;
+
+      const octokit = new Octokit({ auth });
+
+      const { data } = await octokit.request('GET /user/repos?page={page}', {});
+      console.log(data.map((repo: ListRepos) => repo.name));
+    };
+    p();
+  }, [session]);
+
+  useEffect(() => {
+    const promise = async () => {
+      if (!session || repos.length) return null;
 
       setIsLoading(true);
 
@@ -67,11 +63,9 @@ function useRepos(props?: Props) {
         setRepos(value);
         setIsLoading(false);
       });
-
-      if (test) testApi(octokit);
     };
     promise();
-  }, [session, test]);
+  }, [session]);
 
   return { repos, isLoading };
 }

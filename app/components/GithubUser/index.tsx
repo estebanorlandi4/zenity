@@ -23,19 +23,24 @@ function GithubUser() {
     name,
     public_repos,
     total_private_repos,
+    id,
   } = user;
-  console.log({});
+
+  const date = new Date(created_at);
 
   return (
     <User>
       <h1>{name}</h1>
       <p className="bio">{bio}</p>
-      <time>{created_at}</time>
+      <time>
+        {date.getDate()} / {date.getMonth()} / {date.getFullYear()}
+      </time>
 
       <p>
         {login}
         <span>{location}</span>
       </p>
+      <div>{total_private_repos + public_repos}</div>
     </User>
   );
 }

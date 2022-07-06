@@ -1,14 +1,15 @@
-import { HTMLProps } from 'react';
+import { motion, MotionProps } from 'framer-motion';
 
-interface Props extends HTMLProps<HTMLAnchorElement> {
+interface Props extends MotionProps {
   children: JSX.Element | JSX.Element[];
+  href: string;
 }
 
 function ExtLink({ children, ...props }: Props) {
   return (
-    <a {...props} target="_blank" rel="noreferrer">
+    <motion.a {...props} target="_blank" rel="noreferrer">
       {children}
-    </a>
+    </motion.a>
   );
 }
 

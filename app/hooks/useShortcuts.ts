@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { getLocal, saveLocal } from '../utils/storage';
-import { IPage } from '../utils/interfaces';
+import { IShortcut } from '../utils/interfaces';
 
 const KEY = 'zenity.favorites';
 
 function useShortcuts() {
-  const [shortcuts, setShortcuts] = useState<IPage[]>([]);
+  const [shortcuts, setShortcuts] = useState<IShortcut[]>([]);
 
   useEffect(() => {
     setShortcuts(getLocal(KEY) || []);
     return () => setShortcuts([]);
   }, []);
 
-  const addShortcut = (site: IPage) => {
+  const addShortcut = (site: IShortcut) => {
     if (!site) return null;
     if (shortcuts.length >= 8) return null;
 

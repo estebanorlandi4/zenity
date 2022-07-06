@@ -15,8 +15,9 @@ interface Props {}
 function useRepos(props?: Props) {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [repos, setRepos] = useState<ListRepos>([]);
+  const [repos, setRepos] = useState<any[]>([]);
 
+  /*
   useEffect(() => {
     const p = async () => {
       if (!session) return null;
@@ -32,6 +33,7 @@ function useRepos(props?: Props) {
     };
     p();
   }, [session]);
+  */
 
   useEffect(() => {
     const promise = async () => {
@@ -65,7 +67,7 @@ function useRepos(props?: Props) {
       });
     };
     promise();
-  }, [session]);
+  }, [session, repos.length]);
 
   return { repos, isLoading };
 }

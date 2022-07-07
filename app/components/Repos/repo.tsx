@@ -4,7 +4,9 @@ import ExtLink from 'components/ExtLink';
 import { AiOutlineCopy } from 'react-icons/ai';
 import { PlaceholderContainer, RepoContainer } from './styled';
 import { toClipboard } from 'utils/toClipboard';
-import { MotionProps } from 'framer-motion';
+import { AnimatePresence, MotionProps } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Toast from 'components/Toast';
 
 function Placeholder(props: MotionProps) {
   return (
@@ -30,9 +32,18 @@ interface Props extends MotionProps {
 }
 
 function Repo({ repo, placeholder, ...others }: Props) {
+  const [cloned, setCloned] = useState(false);
+  useEffect(() => {
+    if (cloned) setTimeout(() => setCloned(false), 1.5 * 1000);
+  }, [cloned]);
+
   if (placeholder) return <Placeholder {...others} />;
 
   const { languages, clone_url, owner, id, html_url, visibility, name } = repo;
+  const handleCopy = (value: string) => {
+    toClipboard(value);
+    setCloned(true);
+  };
 
   return (
     <RepoContainer {...others}>
@@ -42,15 +53,6 @@ function Repo({ repo, placeholder, ...others }: Props) {
         </ExtLink>
         <div>
           <span className="repo-visibility">{visibility}</span>
-          {/*
-            languages.length ? (
-                    <ul className="repo-languages">
-                      {languages.map((lang: string) => (
-                        <li key={lang}>{lang}</li>
-                      ))}
-                    </ul>
-                  ) : null 
-          */}
         </div>
       </div>
 
@@ -68,12 +70,27 @@ function Repo({ repo, placeholder, ...others }: Props) {
           </div>
         </ExtLink>
 
-        <button className="repo-clone" onClick={() => toClipboard(clone_url)}>
-          clone <AiOutlineCopy className="icon" />
-        </button>
+        <div className="clone-container">
+          <AnimatePresence>
+            {cloned && <Toast label="Cloned!" />}
+          </AnimatePresence>
+          <button className="repo-clone" onClick={() => handleCopy(clone_url)}>
+            clone <AiOutlineCopy className="icon" />
+          </button>
+        </div>
       </div>
     </RepoContainer>
   );
 }
 
 export default Repo;
+
+/*
+            languages.length ? (
+                    <ul className="repo-languages">
+                      {languages.map((lang: string) => (
+                        <li key={lang}>{lang}</li>
+                      ))}
+                    </ul>
+                  ) : null 
+          */

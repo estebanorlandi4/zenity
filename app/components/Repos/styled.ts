@@ -93,6 +93,10 @@ export const RepoContainer = styled(motion.div)`
     font-weight: 500;
   }
 
+  .clone-container {
+    position: relative;
+  }
+
   .repo-clone {
     display: flex;
     align-items: center;

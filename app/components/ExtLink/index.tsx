@@ -1,7 +1,9 @@
 import { motion, MotionProps } from 'framer-motion';
 
+type Children = JSX.Element | string | (string | JSX.Element)[];
+
 interface Props extends MotionProps {
-  children: JSX.Element | JSX.Element[];
+  children: Children;
   href: string;
   className?: string;
 }

@@ -1,14 +1,7 @@
+import ExtLink from 'components/ExtLink';
 import useUser from 'hooks/github/useUser';
-import styled from 'styled-components';
-
-const User = styled.div`
-  .bio {
-    width: 20rem;
-    background-color: #fff1;
-    padding: 1rem;
-    border-radius: 5px;
-  }
-`;
+import { SiTwitter } from 'react-icons/si';
+import { Container } from './styled';
 
 function GithubUser() {
   const { user } = useUser();
@@ -24,7 +17,11 @@ function GithubUser() {
     public_repos,
     total_private_repos,
     id,
+    email,
+    twitter_username,
   } = user;
+
+  console.log(user);
 
   const date = new Date(created_at);
 
@@ -33,19 +30,26 @@ function GithubUser() {
     : public_repos;
 
   return (
-    <User>
-      <h1>{name}</h1>
-      <p className="bio">{bio}</p>
+    <Container>
+      <h2 className="full-name">{name}</h2>
+      <div>
+        <div>{location}</div>
+        <div>{login}</div>
+      </div>
+
       <time>
         {date.getDate()} / {date.getMonth()} / {date.getFullYear()}
       </time>
 
-      <p>
-        {login}
-        <span>{location}</span>
-      </p>
-      <div>{total_repos}</div>
-    </User>
+      <p className="bio">{bio}</p>
+      {email && <ExtLink href={`mailto:${email}`}>{email}</ExtLink>}
+      {twitter_username && (
+        <ExtLink href={`https://www.twitter.com/${twitter_username}`}>
+          <SiTwitter />
+          {twitter_username}
+        </ExtLink>
+      )}
+    </Container>
   );
 }
 

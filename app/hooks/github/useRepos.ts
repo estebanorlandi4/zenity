@@ -17,24 +17,6 @@ function useRepos(props?: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [repos, setRepos] = useState<any[]>([]);
 
-  /*
-  useEffect(() => {
-    const p = async () => {
-      if (!session) return null;
-
-      setIsLoading(true);
-
-      const { accessToken: auth } = session;
-
-      const octokit = new Octokit({ auth });
-
-      const { data } = await octokit.request('GET /user/repos?page={page}', {});
-      console.log(data.map((repo: ListRepos) => repo.name));
-    };
-    p();
-  }, [session]);
-  */
-
   useEffect(() => {
     const promise = async () => {
       if (!session || repos.length) return null;

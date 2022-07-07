@@ -72,7 +72,7 @@ function Repo({ repo, placeholder, ...others }: Props) {
 
         <div className="clone-container">
           <AnimatePresence>
-            {cloned && <Toast label="Cloned!" />}
+            {cloned && <Toast label="Copied!" />}
           </AnimatePresence>
           <button className="repo-clone" onClick={() => handleCopy(clone_url)}>
             clone <AiOutlineCopy className="icon" />

@@ -1,4 +1,4 @@
-import useGithubUser from 'hooks/useGithubUser';
+import useUser from 'hooks/github/useUser';
 import styled from 'styled-components';
 
 const User = styled.div`
@@ -11,7 +11,7 @@ const User = styled.div`
 `;
 
 function GithubUser() {
-  const { user } = useGithubUser();
+  const { user } = useUser();
 
   if (!user) return <div />;
   const {

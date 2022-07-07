@@ -6,7 +6,7 @@ import { Endpoints } from '@octokit/types';
 
 type User = Endpoints['GET /user']['response']['data'];
 
-function useGithubUser() {
+function useUser() {
   const [user, setUser] = useState<User | null>(null);
   const { data: session } = useSession();
 
@@ -26,4 +26,4 @@ function useGithubUser() {
   return { user };
 }
 
-export default useGithubUser;
+export default useUser;

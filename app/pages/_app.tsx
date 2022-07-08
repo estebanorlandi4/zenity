@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider>
       <GlobalStyles />
+
       <Head>
         <title>Zenity</title>
         <meta name="description" content="Favorites manager" />

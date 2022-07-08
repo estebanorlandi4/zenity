@@ -4,6 +4,9 @@ import { ChangeEvent } from 'react';
 
 export interface Change extends ChangeEvent<HTMLInputElement> {}
 
+export interface IGithubIcons {
+  [icons: string]: string;
+}
 export interface IDate {
   hh: string;
   mm: string;

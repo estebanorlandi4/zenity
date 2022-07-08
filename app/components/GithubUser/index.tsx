@@ -1,10 +1,43 @@
-import ExtLink from 'components/ExtLink';
+import Image from 'next/image';
+import { useContext } from 'react';
+import { SiGmail, SiTwitter } from 'react-icons/si';
+
 import useUser from 'hooks/github/useUser';
-import { SiTwitter } from 'react-icons/si';
-import { Container } from './styled';
+
+import { Contact, Container } from './styled';
+import IconsContext from 'contexts/iconsContext';
+
+type Icons = { [icon: string]: string } | null;
+interface Params {
+  icons: Icons;
+  str: string;
+}
+const parseIcons = ({ icons, str }: Params) => {
+  const codes = str.match(/\:\w+\:/g);
+  if (!icons || !codes) return null;
+  const parsed: (string | JSX.Element)[] = str.split(':');
+  const change: { [key: string]: number } = {};
+
+  codes.map((code: string) => {
+    const key = code.split(':').join('');
+    const index = parsed.findIndex((value) => value === key);
+
+    change[key] = index;
+  });
+
+  Object.entries(change).map(([key, value]: [key: string, value: number]) => {
+    const icon = icons[key];
+    parsed[value] = (
+      <Image key={value} width="20px" height="20px" alt="" src={icon} />
+    );
+  });
+  return parsed;
+};
 
 function GithubUser() {
   const { user } = useUser();
+
+  const icons = useContext(IconsContext);
 
   if (!user) return <div />;
   const {
@@ -21,13 +54,13 @@ function GithubUser() {
     twitter_username,
   } = user;
 
-  console.log(user);
-
   const date = new Date(created_at);
 
   const total_repos = total_private_repos
     ? total_private_repos + public_repos
     : public_repos;
+
+  const parsedBio = bio && parseIcons({ icons, str: bio });
 
   return (
     <Container>
@@ -41,13 +74,18 @@ function GithubUser() {
         {date.getDate()} / {date.getMonth()} / {date.getFullYear()}
       </time>
 
-      <p className="bio">{bio}</p>
-      {email && <ExtLink href={`mailto:${email}`}>{email}</ExtLink>}
+      <p className="bio">{parsedBio}</p>
+      {email && (
+        <Contact href={`mailto:${email}`}>
+          <SiGmail />
+          {email}
+        </Contact>
+      )}
       {twitter_username && (
-        <ExtLink href={`https://www.twitter.com/${twitter_username}`}>
+        <Contact href={`https://www.twitter.com/${twitter_username}`}>
           <SiTwitter />
           {twitter_username}
-        </ExtLink>
+        </Contact>
       )}
     </Container>
   );

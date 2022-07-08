@@ -10,6 +10,7 @@ const nextConfig = {
       'icon.horse',
       'avatars.githubusercontent.com',
       'lh3.googleusercontent.com',
+      'github.githubassets.com',
     ],
   },
 };

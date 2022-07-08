@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ExtLink from 'components/ExtLink';
 
 export const Container = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ export const Container = styled.div`
 
   .bio {
     width: 20rem;
-    background-color: #fff1;
+    background-color: #2e2e34;
     padding: 1rem;
     border-radius: 5px;
   }
@@ -15,4 +16,10 @@ export const Container = styled.div`
   .full-name {
     font-size: 1.25rem;
   }
+`;
+
+export const Contact = styled(ExtLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 `;

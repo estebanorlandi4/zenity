@@ -2,12 +2,10 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import { SiGmail, SiTwitter } from 'react-icons/si';
 
-import useUser from 'hooks/github/useUser';
-
 import { Contact, Container } from './styled';
-import IconsContext from 'contexts/iconsContext';
+import GithubContext from 'contexts/githubContext';
 
-type Icons = { [icon: string]: string } | null;
+type Icons = { [icon: string]: string } | null | undefined;
 interface Params {
   icons: Icons;
   str: string;
@@ -35,9 +33,7 @@ const parseIcons = ({ icons, str }: Params) => {
 };
 
 function GithubUser() {
-  const { user } = useUser();
-
-  const icons = useContext(IconsContext);
+  const { icons, user } = useContext(GithubContext);
 
   if (!user) return <div />;
   const {

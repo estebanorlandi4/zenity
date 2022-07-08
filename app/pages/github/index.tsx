@@ -2,7 +2,7 @@ import GithubUser from 'components/GithubUser';
 import Navbar from 'components/Navbar';
 import Repos from 'components/Repos';
 import SearchGithubUser from 'components/SearchGithubUser';
-import { IconsProvider } from 'contexts/iconsContext';
+import { GithubProvider } from 'contexts/githubContext';
 
 const styles = {
   padding: '5rem 2rem 0 2rem',
@@ -13,14 +13,14 @@ const styles = {
 
 function Github() {
   return (
-    <IconsProvider>
+    <GithubProvider>
       <Navbar />
       <main style={styles}>
         <GithubUser />
         <Repos />
         <SearchGithubUser />
       </main>
-    </IconsProvider>
+    </GithubProvider>
   );
 }
 

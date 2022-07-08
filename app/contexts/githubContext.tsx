@@ -2,11 +2,16 @@ import { createContext } from 'react';
 
 import { useIcons, useUser } from 'hooks/github';
 import { IGithubProvider } from 'utils/interfaces/github';
+import { Children } from 'utils/interfaces';
 
-const GithubContext = createContext<IGithubProvider>({});
+const initial = {
+  icons: null,
+  user: null,
+};
+const GithubContext = createContext<IGithubProvider>(initial);
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children: Children;
 }
 export const GithubProvider = ({ children }: Props) => {
   const { icons } = useIcons();

@@ -11,6 +11,14 @@ export const Container = styled.div`
     background-color: #2e2e34;
     padding: 1rem;
     border-radius: 5px;
+
+    .icon-container {
+      display: inline-flex;
+      align-items: center;
+      width: 1.25rem;
+      height: 1.25rem;
+      transform: translate(0, 17%);
+    }
   }
 
   .full-name {

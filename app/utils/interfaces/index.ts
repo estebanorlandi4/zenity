@@ -40,3 +40,8 @@ export interface ISite {
   url: string;
   name: string;
 }
+
+export type NavbarRoute = { label: string; path: string; icon: JSX.Element };
+export type NavbarRoutes = NavbarRoute[];
+
+export type Children = JSX.Element | string | (JSX.Element | string | number)[];

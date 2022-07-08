@@ -13,7 +13,7 @@ function Navbar() {
     <Nav>
       <div className="container">
         <NavMenu>
-          {routes.map(({ label, path, icon }: any) => (
+          {routes.map(({ label, path, icon }) => (
             <Link href={path} key={path}>
               <a className="nav-link">
                 {icon} {label}

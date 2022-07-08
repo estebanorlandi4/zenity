@@ -12,11 +12,7 @@ const parseURL = ({ url }: ParseProps) => {
   return url;
 };
 
-interface Props {
-  removeSite: (id: string) => any;
-  site: IShortcut;
-}
-const Img = ({ url }: any) => {
+const Img = ({ url }: ParseProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onLoad = () => setIsLoading(false);
@@ -35,6 +31,10 @@ const Img = ({ url }: any) => {
   );
 };
 
+interface Props {
+  removeSite: (id: string) => void;
+  site: IShortcut;
+}
 function Page({ removeSite, site }: Props) {
   const { name, url, _id } = site;
   return (

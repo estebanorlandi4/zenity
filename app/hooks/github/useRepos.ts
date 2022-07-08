@@ -1,21 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-
-import { Endpoints } from '@octokit/types';
 import { Octokit } from '@octokit/rest';
 
-interface CustomProps {
-  languages?: string[];
-}
+import { RepoWithLanguages } from 'utils/interfaces/github';
 
-type ListRepos = (Endpoints['GET /user/repos']['response']['data'] &
-  CustomProps)[];
-
-interface Props {}
-function useRepos(props?: Props) {
+function useRepos() {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [repos, setRepos] = useState<any[]>([]);
+  const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
 
   useEffect(() => {
     const promise = async () => {

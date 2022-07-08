@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import { SiGmail, SiTwitter } from 'react-icons/si';
 
-import { Contact, Container } from './styled';
 import GithubContext from 'contexts/githubContext';
+import { Contact, Container } from './styled';
+import { Icons } from 'utils/interfaces/github';
 
-type Icons = { [icon: string]: string } | null | undefined;
 interface Params {
   icons: Icons;
   str: string;
@@ -13,23 +13,19 @@ interface Params {
 const parseIcons = ({ icons, str }: Params) => {
   const codes = str.match(/\:\w+\:/g);
   if (!icons || !codes) return null;
-  const parsed: (string | JSX.Element)[] = str.split(':');
-  const change: { [key: string]: number } = {};
 
-  codes.map((code: string) => {
-    const key = code.split(':').join('');
-    const index = parsed.findIndex((value) => value === key);
+  const words = str.split(/\s/g);
 
-    change[key] = index;
-  });
+  return words.map((word) => {
+    if (!/\:\w+\:/.test(word)) return `${word} `;
+    const icon = icons[word.replaceAll(/\:/gi, '')];
 
-  Object.entries(change).map(([key, value]: [key: string, value: number]) => {
-    const icon = icons[key];
-    parsed[value] = (
-      <Image key={value} width="20px" height="20px" alt="" src={icon} />
+    return (
+      <span key={word} className="icon-container">
+        <Image width="20px" height="20px" alt="" src={icon} />
+      </span>
     );
   });
-  return parsed;
 };
 
 function GithubUser() {

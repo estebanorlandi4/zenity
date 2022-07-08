@@ -36,7 +36,6 @@ const Label = styled.div`
 
 interface Props extends HTMLProps<HTMLInputElement> {
   label?: string;
-  value?: any;
 }
 
 const inputTypes: { [key: string]: React.FC } = {

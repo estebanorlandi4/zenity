@@ -29,7 +29,7 @@ const variants: Variants = {
 };
 
 function Repos() {
-  const { repos, isLoading } = useRepos({ test: true });
+  const { repos, isLoading } = useRepos();
 
   return (
     <Container>
@@ -46,16 +46,19 @@ function Repos() {
         ))}
 
       {!isLoading &&
-        repos.map((repo: any, i) => (
-          <Repo
-            key={repo.id}
-            initial="hidden"
-            animate="fadein"
-            variants={variants}
-            custom={{ timeout: i * 0.25 }}
-            repo={repo}
-          />
-        ))}
+        repos.map(
+          (repo, i) =>
+            repo && (
+              <Repo
+                key={repo.id}
+                initial="hidden"
+                animate="fadein"
+                variants={variants}
+                custom={{ timeout: i * 0.25 }}
+                repo={repo}
+              />
+            ),
+        )}
     </Container>
   );
 }

@@ -7,6 +7,7 @@ import { toClipboard } from 'utils/toClipboard';
 import { AnimatePresence, MotionProps } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Toast from 'components/Toast';
+import { RepoWithLanguages } from 'utils/interfaces/github';
 
 function Placeholder(props: MotionProps) {
   return (
@@ -27,7 +28,7 @@ function Placeholder(props: MotionProps) {
 }
 
 interface Props extends MotionProps {
-  repo?: any;
+  repo?: RepoWithLanguages;
   placeholder?: boolean;
 }
 
@@ -38,8 +39,8 @@ function Repo({ repo, placeholder, ...others }: Props) {
   }, [cloned]);
 
   if (placeholder) return <Placeholder {...others} />;
-
-  const { languages, clone_url, owner, id, html_url, visibility, name } = repo;
+  if (!repo) return null;
+  const { clone_url, owner, html_url, visibility, name } = repo;
   const handleCopy = (value: string) => {
     toClipboard(value);
     setCloned(true);

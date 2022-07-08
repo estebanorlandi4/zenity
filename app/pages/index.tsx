@@ -36,11 +36,6 @@ function Landing() {
           <ListShortcuts />
         </div>
       </div>
-
-      <section>
-        <h2>Repos</h2>
-        <Repos />
-      </section>
     </Container>
   );
 }

@@ -1,7 +1,9 @@
 import { DiGithubBadge } from 'react-icons/di';
 import { MdDashboard } from 'react-icons/md';
 
-export const routes: any = [
+import { NavbarRoutes } from 'utils/interfaces';
+
+export const routes: NavbarRoutes = [
   {
     label: 'Dashboard',
     path: '/',

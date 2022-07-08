@@ -1,18 +1,29 @@
-import { GetServerSideProps, NextPageContext } from 'next';
+import { NextPageContext } from 'next';
 import Image from 'next/image';
-import { getProviders, getSession, signIn } from 'next-auth/react';
+import {
+  getProviders,
+  getSession,
+  signIn,
+  ClientSafeProvider,
+} from 'next-auth/react';
 import { DiGithub } from 'react-icons/di';
 import { Button, Container } from 'components/Login';
 import { BsLinkedin } from 'react-icons/bs';
 import { SiGmail } from 'react-icons/si';
 
-const icons: any = {
+interface Icons {
+  [icon: string]: { color: string; icon: JSX.Element };
+}
+const icons: Icons = {
   github: { color: '#fff', icon: <DiGithub size={28} /> },
   linkedin: { color: '#0a66c2', icon: <BsLinkedin size={20} /> },
   google: { color: '#EA4335', icon: <SiGmail size={18} /> },
 };
 
-function LogIn({ providers }: any) {
+interface Props {
+  providers: ClientSafeProvider;
+}
+function LogIn({ providers }: Props) {
   return (
     <Container>
       <div className="decoration">
@@ -28,7 +39,7 @@ function LogIn({ providers }: any) {
       <div className="form">
         <h2>Sign in to Zenity</h2>
         <div className="providers">
-          {Object.values(providers).map(({ name, id }: any) => (
+          {Object.values(providers).map(({ name, id }) => (
             <Button key={id} onClick={() => signIn(id)} bg={icons[id].color}>
               {icons[id].icon}
             </Button>
@@ -45,5 +56,6 @@ export async function getServerSideProps(context: NextPageContext) {
   const { req } = context;
   const session = await getSession({ req });
   if (session) return { redirect: { permanent: false, destination: '/' } };
+
   return { props: { providers: await getProviders() } };
 }

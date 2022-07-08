@@ -1,10 +1,11 @@
-import Input from 'components/Input';
-import { AnimatePresence, Variants } from 'framer-motion';
-import { useSession } from 'next-auth/react';
+import { FormEvent, useState } from 'react';
 import Image from 'next/image';
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { AnimatePresence, Variants } from 'framer-motion';
+
+import Input from 'components/Input';
+import useUsers from 'hooks/github/useUsers';
 import { Change } from 'utils/interfaces';
-import searchGithubUser from 'utils/searchGithubUser';
+
 import { Container, User, Users } from './styled';
 
 const variants: Variants = {
@@ -25,25 +26,13 @@ const variants: Variants = {
 };
 
 function SearchGithubUser() {
-  const [users, setUsers] = useState<any[] | null>(null);
   const [search, setSearch] = useState('');
-
-  const { data: session } = useSession();
-
-  const promise = useCallback(async () => {
-    const { items } = await searchGithubUser({ query: search, session });
-    setUsers(items ?? []);
-  }, [search, session]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => promise(), 350);
-    return () => clearTimeout(timeout);
-  }, [promise]);
+  const { users, refetch } = useUsers({ search });
 
   const handleSearch = ({ target: { value } }: Change) => setSearch(value);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    promise();
+    refetch();
   };
 
   return (

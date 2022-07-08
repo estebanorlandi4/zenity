@@ -7,12 +7,12 @@ import { Contact, Container } from './styled';
 import { Icons } from 'utils/interfaces/github';
 
 interface Params {
-  icons: Icons;
+  icons: Icons | null;
   str: string;
 }
 const parseIcons = ({ icons, str }: Params) => {
   const codes = str.match(/\:\w+\:/g);
-  if (!icons || !codes) return null;
+  if (!icons || !codes) return str;
 
   const words = str.split(/\s/g);
 

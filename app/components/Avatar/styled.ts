@@ -1,5 +1,27 @@
 import styled from 'styled-components';
 
+export const PlaceholderContainer = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  .username {
+    opacity: 1;
+    background-color: #fff1;
+    height: 1rem;
+    width: 10rem;
+    border-radius: 1rem;
+  }
+  .image {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #fff1;
+    border-radius: 100%;
+    ::after {
+      display: none;
+    }
+  }
+`;
 export const Container = styled.div`
   display: flex;
   gap: 0.75rem;
@@ -7,6 +29,7 @@ export const Container = styled.div`
 
   .username {
     opacity: 0.25;
+    font-size: 0.9rem;
   }
 
   .image-container {
@@ -15,28 +38,10 @@ export const Container = styled.div`
     place-items: center;
     width: 2.5rem;
     height: 2.5rem;
-
-    ::after {
-      --size: 15%;
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(0%, -25%);
-      width: var(--size);
-      height: var(--size);
-      background-color: #2f2;
-      border-radius: 100%;
-      border: 0.25rem solid #1e1e2e;
-    }
+    border-radius: 0;
   }
 
-  &,
-  * {
-    overflow: auto;
-  }
-
-  .avatar-image {
+  .image {
     display: block;
     width: 100%;
     height: 100%;

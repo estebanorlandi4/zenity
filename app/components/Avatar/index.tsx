@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Container } from './styled';
+import { Container, PlaceholderContainer } from './styled';
 
 interface User {
   email?: string | null;
@@ -10,21 +10,39 @@ interface User {
 
 interface Props {
   user?: User | null;
+  isLoading: boolean;
+  onClick(): void;
+  as: 'div' | 'button';
+  direction?: 'left' | 'right';
 }
 
-function Avatar({ user }: Props) {
+function Placeholder() {
   return (
-    <Container>
-      <span className="username">{user?.name}</span>
+    <PlaceholderContainer>
+      <span className="username" />
+      <div className="image" />
+    </PlaceholderContainer>
+  );
+}
+
+function Avatar({ as, direction, user, isLoading, onClick }: Props) {
+  const handleClick = () => {
+    if (isLoading) return null;
+    return onClick();
+  };
+
+  if (isLoading) return <Placeholder />;
+
+  const username = <span className="username">{user?.name}</span>;
+  return (
+    <Container as={as} onClick={handleClick}>
+      {!direction || direction === 'left' ? username : null}
       <div className="image-container">
-        <Image
-          width="50px"
-          height="50px"
-          src={user?.image || 'https://picsum.photos/200/300'}
-          alt=""
-          className="avatar-image"
-        />
+        {user?.image && (
+          <Image layout="fill" src={user.image} className="image" alt="" />
+        )}
       </div>
+      {direction === 'right' && username}
     </Container>
   );
 }

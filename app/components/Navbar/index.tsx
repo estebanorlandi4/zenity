@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { routes } from './routes';
 import Avatar from 'components/Avatar';
 import { Nav, NavMenu } from './styled';
+import Router from 'next/router';
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -23,27 +24,18 @@ function Navbar() {
         </NavMenu>
 
         <div className="right">
-          {routes.right.map(
-            ({ authOnly, label, path, icon: { at, element }, anchor }) =>
-              authOnly &&
-              !session && (
-                <Link key={path} href={path}>
-                  <a className="nav-link" {...anchor}>
-                    {at === 'left' && element} {label}{' '}
-                    {at === 'right' && element}
-                  </a>
-                </Link>
-              ),
-          )}
-
-          {isLoading ? 'loading' : null}
-          {!isLoading && session ? (
-            <Link href="/auth/logout">
-              <a>
-                <Avatar user={session?.user} />
-              </a>
+          {!isLoading && !session ? (
+            <Link href="/auth/login">
+              <a className="login">Login</a>
             </Link>
-          ) : null}
+          ) : (
+            <Avatar
+              as="button"
+              onClick={() => Router.push('/auth/logout')}
+              isLoading={isLoading}
+              user={session?.user}
+            />
+          )}
         </div>
       </div>
     </Nav>

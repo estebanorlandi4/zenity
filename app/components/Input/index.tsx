@@ -9,12 +9,10 @@ const Label = styled.div`
   .label {
     display: flex;
     width: 100%;
-    background-color: red;
-
     font-size: 0.85rem;
     font-weight: 500;
     color: #888;
-    background-color: red;
+    transform: translate(0, -3px);
   }
 
   input {
@@ -26,7 +24,7 @@ const Label = styled.div`
     border-radius: 0.25rem;
   }
   input:focus {
-    outline: 2px solid rebeccapurple;
+    outline: 2px solid var(--purple);
   }
 
   input::placeholder {

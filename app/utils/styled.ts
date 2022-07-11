@@ -1,6 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+  :root {
+    --purple: #764abc;
+    --pink: #e03db2;
+    --cyan: #24d3d3;
+  }
+
   * {
     outline: none;
     box-sizing: border-box;

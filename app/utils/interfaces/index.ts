@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, HTMLProps } from 'react';
 
 export interface Change extends ChangeEvent<HTMLInputElement> {}
 
@@ -41,7 +41,16 @@ export interface ISite {
   name: string;
 }
 
-export type NavbarRoute = { label: string; path: string; icon: JSX.Element };
+export type NavbarRoute = {
+  label: string;
+  path: string;
+  icon: {
+    element: JSX.Element;
+    at: 'left' | 'right';
+  };
+  anchor?: HTMLProps<HTMLAnchorElement> | {};
+  authOnly?: boolean;
+};
 export type NavbarRoutes = NavbarRoute[];
 
 export type Children = JSX.Element | string | (JSX.Element | string | number)[];

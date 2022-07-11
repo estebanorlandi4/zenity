@@ -13,27 +13,35 @@ function Navbar() {
     <Nav>
       <div className="container">
         <NavMenu>
-          {routes.map(({ label, path, icon }) => (
-            <Link href={path} key={path}>
+          {routes.left.map(({ label, path, icon: { at, element } }) => (
+            <Link key={path} href={path}>
               <a className="nav-link">
-                {icon} {label}
+                {at === 'left' && element} {label} {at === 'right' && element}
               </a>
             </Link>
           ))}
         </NavMenu>
 
         <div className="right">
+          {routes.right.map(
+            ({ authOnly, label, path, icon: { at, element }, anchor }) =>
+              authOnly &&
+              !session && (
+                <Link key={path} href={path}>
+                  <a className="nav-link" {...anchor}>
+                    {at === 'left' && element} {label}{' '}
+                    {at === 'right' && element}
+                  </a>
+                </Link>
+              ),
+          )}
+
           {isLoading ? 'loading' : null}
           {!isLoading && session ? (
             <Link href="/auth/logout">
               <a>
                 <Avatar user={session?.user} />
               </a>
-            </Link>
-          ) : null}
-          {!isLoading && !session ? (
-            <Link href="/auth/login">
-              <a>Login</a>
             </Link>
           ) : null}
         </div>

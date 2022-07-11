@@ -10,8 +10,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyles />
 
       <Head>
-        <title>Zenity</title>
-        <meta name="description" content="Favorites manager" />
+        <title>ProdiGi</title>
+        <meta
+          name="description"
+          content="New tab productivity page with github interactions."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -19,15 +19,30 @@ export const Nav = styled.nav`
     margin: 0 auto;
   }
 
-  .nav-link {
+  .login {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    text-transform: capitalize;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+
+    background-color: transparent;
+    color: rebeccapurple;
+    border: 1px solid rebeccapurple;
+
+    :hover {
+    }
   }
 `;
 
 export const NavMenu = styled.ul`
   display: flex;
   gap: 1rem;
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: capitalize;
+  }
 `;

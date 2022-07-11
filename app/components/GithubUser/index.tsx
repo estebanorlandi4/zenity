@@ -18,8 +18,8 @@ const parseIcons = ({ icons, str }: Params) => {
 
   return words.map((word) => {
     if (!/\:\w+\:/.test(word)) return `${word} `;
-    const icon = icons[word.replaceAll(/\:/gi, '')];
 
+    const icon = icons[word.replaceAll(/\:/gi, '')];
     return (
       <span key={word} className="icon-container">
         <Image width="20px" height="20px" alt="" src={icon} />

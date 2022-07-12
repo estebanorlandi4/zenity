@@ -28,11 +28,13 @@ export const Users = styled.ul`
   gap: 0.5rem;
   background-color: #1e1e25;
   width: 100%;
-  height: 10rem;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 1rem;
   border-radius: 0 0 0.25rem 0.25rem;
+
+  height: max-content;
+  max-height: 10rem;
 
   :not(:last-child) {
     background-color: red;

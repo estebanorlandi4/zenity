@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 export const Container = styled.ul`
@@ -6,7 +6,6 @@ export const Container = styled.ul`
   flex-flow: column;
   gap: 1rem;
   width: 100%;
-  max-width: 40rem;
   margin: 0 auto;
 
   .column {
@@ -16,7 +15,6 @@ export const Container = styled.ul`
   }
 `;
 
-interface Props {}
 export const RepoContainer = styled(motion.div)`
   position: relative;
   display: flex;

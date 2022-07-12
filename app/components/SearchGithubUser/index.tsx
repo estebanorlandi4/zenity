@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, KeyboardEvent, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence } from 'framer-motion';
 
@@ -12,10 +12,16 @@ function SearchGithubUser() {
   const [search, setSearch] = useState('');
   const { users, refetch } = useUsers({ search });
 
-  const handleSearch = ({ target: { value } }: Change) => setSearch(value);
+  const handleSearch = ({ target: { value } }: Change) => {
+    setSearch(value);
+  };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     refetch();
+  };
+
+  const removeSearch = ({ key }: KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Escape') setSearch('');
   };
 
   return (
@@ -24,6 +30,7 @@ function SearchGithubUser() {
         <Input
           value={search}
           onChange={handleSearch}
+          onKeyDown={removeSearch}
           type="text"
           placeholder="User"
           className="search-input"

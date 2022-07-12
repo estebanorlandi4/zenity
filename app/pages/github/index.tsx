@@ -4,9 +4,11 @@ import Repos from 'components/Repos';
 import { GithubProvider } from 'contexts/githubContext';
 
 const styles = {
-  padding: '5rem 2rem 0 2rem',
+  padding: '5rem 0 0 0',
+  width: '90%',
+  margin: '0 auto',
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
+  gridTemplateColumns: 'auto 1fr',
   gap: '3rem',
 };
 

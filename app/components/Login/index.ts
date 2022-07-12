@@ -1,4 +1,7 @@
 import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
+
+import { pink } from 'utils/styled';
 
 export const Container = styled.div`
   display: flex;
@@ -34,9 +37,14 @@ export const Container = styled.div`
     }
   }
 
+  h2,
+  p {
+    color: #aaa;
+  }
+
   h2 {
     margin: 0 0 0.5rem 0;
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   p {
     opacity: 0.25;
@@ -58,7 +66,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled(motion.button)`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -67,13 +75,13 @@ export const Button = styled.button`
   border-radius: 5px;
   font-weight: bold;
 
-  ${({ bg }: { bg: string }) =>
-    bg &&
-    css`
-      color: ${bg};
-    `};
   background: #fff1;
+  transform: translate(0, 0);
+  transition: all 0.25s;
+
   :hover {
-    background: #ffffff1e;
+    background: var(--pink);
+    transform: translate(0, -5px);
+    box-shadow: 0 0.6rem 1rem -0.5rem ${pink`38`};
   }
 `;

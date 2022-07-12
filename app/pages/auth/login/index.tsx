@@ -12,7 +12,7 @@ interface Icons {
   [icon: string]: { color: string; icon: JSX.Element };
 }
 const icons: Icons = {
-  github: { color: '#fff', icon: <DiGithub size={28} /> },
+  github: { color: '#fff', icon: <DiGithub className="icon" size={28} /> },
 };
 
 interface Props {
@@ -34,7 +34,7 @@ function LogIn({ providers }: Props) {
 
           <div className="providers">
             {Object.values(providers).map(({ name, id }) => (
-              <Button key={id} onClick={() => signIn(id)} bg={icons[id].color}>
+              <Button key={id} onClick={() => signIn(id)}>
                 {icons[id].icon} Login with {name}
               </Button>
             ))}

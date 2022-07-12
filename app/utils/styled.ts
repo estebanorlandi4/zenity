@@ -1,5 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
+type Opacity = TemplateStringsArray | string;
+
+export const purple = (opacity?: Opacity) => `#764abc${opacity || ''}`;
+export const pink = (opacity?: Opacity) => `#e03db2${opacity || ''}`;
+export const cyan = (opacity?: Opacity) => `#24d3d3${opacity || ''}`;
+
 export const GlobalStyles = createGlobalStyle`
   :root {
     --purple: #764abc;

@@ -1,29 +1,12 @@
 import { FormEvent, useState } from 'react';
 import Image from 'next/image';
-import { AnimatePresence, Variants } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 import Input from 'components/Input';
 import useUsers from 'hooks/github/useUsers';
 import { Change } from 'utils/interfaces';
 
-import { Container, User, Users } from './styled';
-
-const variants: Variants = {
-  hidden: {
-    x: '100%',
-    opacity: 0,
-  },
-  show: ({ delay }) => ({
-    x: 0,
-    opacity: 1,
-
-    transition: { delay },
-  }),
-  toLeft: {
-    x: '100%',
-    scale: 0,
-  },
-};
+import { Container, User, Users, variants } from './styled';
 
 function SearchGithubUser() {
   const [search, setSearch] = useState('');
@@ -47,10 +30,10 @@ function SearchGithubUser() {
         />
       </form>
 
-      <Users>
-        <AnimatePresence>
-          {users &&
-            users.map(({ id, login, avatar_url, html_url }, i) => (
+      {users && (
+        <Users>
+          <AnimatePresence>
+            {users.map(({ id, login, avatar_url, html_url }, i) => (
               <li key={id}>
                 <User
                   initial="hidden"
@@ -72,8 +55,9 @@ function SearchGithubUser() {
                 </User>
               </li>
             ))}
-        </AnimatePresence>
-      </Users>
+          </AnimatePresence>
+        </Users>
+      )}
     </Container>
   );
 }

@@ -8,9 +8,9 @@ export const cyan = (opacity?: Opacity) => `#24d3d3${opacity || ''}`;
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    --purple: #764abc;
-    --pink: #e03db2;
-    --cyan: #24d3d3;
+    --purple: ${purple()};
+    --pink: ${pink()};
+    --cyan: ${cyan()};
   }
 
   * {
@@ -25,7 +25,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     min-height: 100vh;
-    background-color: #24262b;
+    background-color: #0e0e10;
     color: #fff;
   }
   

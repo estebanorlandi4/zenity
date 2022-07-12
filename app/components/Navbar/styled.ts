@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { pink } from 'utils/styled';
 
 export const Nav = styled.nav`
   position: fixed;
@@ -27,10 +28,19 @@ export const Nav = styled.nav`
     border-radius: 5px;
 
     background-color: transparent;
-    color: rebeccapurple;
-    border: 1px solid rebeccapurple;
+    border: 1px solid var(--pink);
+    color: var(--pink);
+
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    transition: all 0.25s;
 
     :hover {
+      background-color: var(--pink);
+      color: #fff;
+      box-shadow: 0 0.6rem 0.75rem -0.5rem ${pink('85')};
+      transform: translate(0, -2px);
     }
   }
 `;

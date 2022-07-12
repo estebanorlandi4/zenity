@@ -5,6 +5,7 @@ import { routes } from './routes';
 import Avatar from 'components/Avatar';
 import { Nav, NavMenu } from './styled';
 import Router from 'next/router';
+import SearchGithubUser from 'components/SearchGithubUser';
 
 function Navbar() {
   const { data: session, status } = useSession();
@@ -22,6 +23,8 @@ function Navbar() {
             </Link>
           ))}
         </NavMenu>
+
+        <SearchGithubUser />
 
         <div className="right">
           {!isLoading && !session ? (

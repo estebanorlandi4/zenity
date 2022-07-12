@@ -1,7 +1,6 @@
 import GithubUser from 'components/GithubUser';
 import Navbar from 'components/Navbar';
 import Repos from 'components/Repos';
-import SearchGithubUser from 'components/SearchGithubUser';
 import { GithubProvider } from 'contexts/githubContext';
 
 const styles = {
@@ -18,7 +17,6 @@ function Github() {
       <main style={styles}>
         <GithubUser />
         <Repos />
-        <SearchGithubUser />
       </main>
     </GithubProvider>
   );

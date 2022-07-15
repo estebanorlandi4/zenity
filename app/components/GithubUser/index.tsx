@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { SiGmail, SiTwitter } from 'react-icons/si';
+import { GoLocation } from 'react-icons/go';
 
 import GithubContext from 'contexts/githubContext';
 import { Contact, Container } from './styled';
@@ -46,7 +47,10 @@ function GithubUser() {
     <Container>
       <h2 className="full-name">{name}</h2>
       <div>
-        <div className="location">{location}</div>
+        <div className="location">
+          <GoLocation size={14} />
+          {location}
+        </div>
         <div className="username">{login}</div>
       </div>
 

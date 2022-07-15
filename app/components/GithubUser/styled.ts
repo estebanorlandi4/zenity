@@ -48,6 +48,9 @@ export const Container = styled.div`
   .location {
     font-size: 0.9rem;
     color: #fff5;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 
     &.placeholder {
       display: flex;

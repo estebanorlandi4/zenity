@@ -4,6 +4,8 @@ import { HiLogin } from 'react-icons/hi';
 
 import { NavbarRoutes } from 'utils/interfaces';
 
+const size = 20;
+
 interface NavbarSections {
   left: NavbarRoutes;
   right: NavbarRoutes;
@@ -13,14 +15,17 @@ export const routes: NavbarSections = {
     {
       label: 'Dashboard',
       path: '/',
-      icon: { at: 'left', element: <MdDashboard size={20} className="icon" /> },
+      icon: {
+        at: 'left',
+        element: <MdDashboard size={size} className="icon" />,
+      },
     },
     {
       label: 'github',
       path: '/github',
       icon: {
         at: 'left',
-        element: <DiGithubBadge size={26} className="icon" />,
+        element: <DiGithubBadge size={size + 5} className="icon" />,
       },
     },
   ],

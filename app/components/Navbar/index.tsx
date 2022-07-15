@@ -18,7 +18,9 @@ function Navbar() {
           {routes.left.map(({ label, path, icon: { at, element } }) => (
             <Link key={path} href={path}>
               <a className="nav-link">
-                {at === 'left' && element} {label} {at === 'right' && element}
+                {at === 'left' && element}
+                <span className="label">{label}</span>
+                {at === 'right' && element}
               </a>
             </Link>
           ))}

@@ -47,12 +47,23 @@ export const Nav = styled.nav`
 
 export const NavMenu = styled.ul`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 
   .nav-link {
+    position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.25rem;
     text-transform: capitalize;
+    gap: 0.5rem;
+
+    .label {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    :hover {
+      color: var(--pink);
+    }
   }
 `;

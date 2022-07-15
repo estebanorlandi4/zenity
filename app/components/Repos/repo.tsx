@@ -8,24 +8,7 @@ import { AnimatePresence, MotionProps } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Toast from 'components/Toast';
 import { RepoWithLanguages } from 'utils/interfaces/github';
-
-function Placeholder(props: MotionProps) {
-  return (
-    <PlaceholderContainer {...props}>
-      <div className="left">
-        <div className="name"></div>
-        <div className="visibility"></div>
-      </div>
-      <div className="right">
-        <div className="owner">
-          <span className="owner-name"></span>
-          <span className="owner-image"></span>
-        </div>
-        <div className="clone"></div>
-      </div>
-    </PlaceholderContainer>
-  );
-}
+import { Placeholder } from 'components/Placeholder';
 
 interface Props extends MotionProps {
   repo?: RepoWithLanguages;
@@ -38,7 +21,23 @@ function Repo({ repo, placeholder, ...others }: Props) {
     if (cloned) setTimeout(() => setCloned(false), 1.5 * 1000);
   }, [cloned]);
 
-  if (placeholder) return <Placeholder {...others} />;
+  if (placeholder)
+    return (
+      <PlaceholderContainer>
+        <div className="left">
+          <Placeholder size={['10rem', '1.5rem']} />
+          <Placeholder size={['5rem', '1rem']} />
+        </div>
+        <div className="right">
+          <div className="owner">
+            <Placeholder size={['7rem', '1rem']} />
+            <Placeholder size={['1.75rem', '1.75rem']} />
+          </div>
+          <Placeholder size={['5rem', '.9rem']} />
+        </div>
+      </PlaceholderContainer>
+    );
+
   if (!repo) return null;
   const { clone_url, owner, html_url, visibility, name } = repo;
   const handleCopy = (value: string) => {

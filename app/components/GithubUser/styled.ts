@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import ExtLink from 'components/ExtLink';
 
 export const Container = styled.div`
@@ -51,13 +51,13 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 0.25rem;
-
-    &.placeholder {
-      display: flex;
-      flex-flow: column;
-      gap: 0.25rem;
-      margin: 0.25rem 0 0 0;
-    }
+  }
+  .location-container.placeholder {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: column;
+    gap: 0.25rem;
+    margin: 0.25rem 0 0 0;
   }
 
   .username {

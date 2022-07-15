@@ -12,7 +12,7 @@ export const Placeholder = styled.div<Params>`
       border-radius: ${radius || '9999px'};
     `}
 
-  background: linear-gradient(-45deg, #fff0, #fff1, #fff2, #fff1, #fff0);
+  background: linear-gradient(-45deg, #fff0, #fff1, #fff2, #fff1, #fff0), linear-gradient(#35353e, #35353e);
   background-size: 400% 400%;
   animation: gradient 2s ease infinite;
 

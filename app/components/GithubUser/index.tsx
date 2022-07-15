@@ -22,7 +22,7 @@ function GithubUser() {
       <Container>
         <Placeholder size={['15rem', '1.25rem']} />
 
-        <div className="location placeholder">
+        <div className="location-container placeholder">
           <Placeholder size={['10rem', '.9rem']} />
           <Placeholder size={['7rem', '1rem']} />
         </div>

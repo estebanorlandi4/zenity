@@ -33,17 +33,18 @@ function Repos() {
 
   return (
     <Container>
-      {isLoading &&
-        Array.from({ length: N_PLACEHOLDERS }).map((_, i) => (
-          <Repo
-            key={`placeholder-${i}`}
-            initial="hidden"
-            animate="fadein"
-            variants={variants}
-            custom={{ timeout: i * 0.5, exit_timeout: i * 0.5 }}
-            placeholder
-          />
-        ))}
+      {isLoading ||
+        (!repos.length &&
+          Array.from({ length: N_PLACEHOLDERS }).map((_, i) => (
+            <Repo
+              key={`placeholder-${i}`}
+              initial="hidden"
+              animate="fadein"
+              variants={variants}
+              custom={{ timeout: i * 0.5, exit_timeout: i * 0.5 }}
+              placeholder
+            />
+          )))}
 
       {!isLoading &&
         repos.map(

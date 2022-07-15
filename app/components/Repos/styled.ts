@@ -132,55 +132,9 @@ export const PlaceholderContainer = styled(motion.div)`
     align-items: flex-end;
   }
 
-  .name,
-  .visibility,
-  .owner-name,
-  .owner-image,
-  .clone {
-    border-radius: 5px;
-    background-color: #35353e;
-    animation: blink 2s infinite linear;
-    opacity: 1;
-
-    @keyframes blink {
-      from {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-  }
-
-  .name {
-    width: 8rem;
-    height: 1.35rem;
-  }
-  .visibility {
-    width: 3rem;
-    height: 1.25rem;
-  }
-
   .owner {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  .owner-name {
-    width: 7rem;
-    height: 0.75rem;
-  }
-  .owner-image {
-    --size: 1.75rem;
-    border-radius: 100%;
-    width: var(--size);
-    height: var(--size);
-  }
-  .clone {
-    width: 3rem;
-    height: 0.75rem;
   }
 `;

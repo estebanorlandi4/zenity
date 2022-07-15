@@ -8,7 +8,7 @@ const styles = {
   width: '90%',
   margin: '0 auto',
   display: 'grid',
-  gridTemplateColumns: 'minmax(22rem, auto) 1fr',
+  gridTemplateColumns: 'minmax(30rem, auto) 1fr minmax(30rem, auto)',
   gap: '3rem',
 };
 

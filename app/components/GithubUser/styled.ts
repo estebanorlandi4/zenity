@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ExtLink from 'components/ExtLink';
 
 export const Container = styled.div`
@@ -8,7 +8,9 @@ export const Container = styled.div`
 
   .bio {
     width: 20rem;
-    background-color: #2e2e34;
+    background-color: #1e1e22;
+    color: #b5b5b5;
+    font-size: 0.9rem;
     padding: 1rem;
     border-radius: 5px;
 
@@ -19,10 +21,51 @@ export const Container = styled.div`
       height: 1.25rem;
       transform: translate(0, 17%);
     }
+
+    &.placeholder {
+      margin: 1rem 0;
+      background-color: transparent;
+      padding: 0;
+    }
   }
 
   .full-name {
     font-size: 1.25rem;
+  }
+
+  .contacts.placeholder {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  .location {
+    font-size: 0.9rem;
+    color: #fff5;
+
+    &.placeholder {
+      display: flex;
+      flex-flow: column;
+      gap: 0.25rem;
+      margin: 0.25rem 0 0 0;
+    }
+  }
+
+  .username {
+    font-size: 1rem;
+
+    &.placeholder {
+      display: flex;
+      flex-flow: column;
+      gap: 0.25rem;
+      margin: 0.25rem 0 0 0;
+    }
   }
 `;
 

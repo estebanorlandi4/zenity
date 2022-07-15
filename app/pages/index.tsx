@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import Clock from 'components/Clock';
 import ListShortcuts from 'components/ListShortcuts';
 import Navbar from 'components/Navbar';
-import useRepos from 'hooks/github/useRepos';
-import ExtLink from 'components/ExtLink';
-import Repos from 'components/Repos';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -25,8 +22,6 @@ const Container = styled.div`
 `;
 
 function Landing() {
-  const { repos } = useRepos();
-  console.log(repos);
   return (
     <Container>
       <Navbar />

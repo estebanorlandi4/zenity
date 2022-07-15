@@ -8,7 +8,7 @@ const styles = {
   width: '90%',
   margin: '0 auto',
   display: 'grid',
-  gridTemplateColumns: 'auto 1fr',
+  gridTemplateColumns: 'minmax(22rem, auto) 1fr',
   gap: '3rem',
 };
 
@@ -16,6 +16,7 @@ function Github() {
   return (
     <GithubProvider>
       <Navbar />
+
       <main style={styles}>
         <GithubUser />
         <Repos />

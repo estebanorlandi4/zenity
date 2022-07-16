@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { RepoWithLanguages, ReposOptions } from 'utils/interfaces/github';
 import { useOctokit } from 'contexts/githubContext';
-
-const getLanguages = () => {};
 
 function useRepos({ search }: ReposOptions) {
   const octokit = useOctokit();
@@ -11,8 +9,15 @@ function useRepos({ search }: ReposOptions) {
   const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
 
   useEffect(() => {
-    console.log('hola');
-  }, []);
+    (async function () {
+      if (!octokit || !search) return null;
+
+      const { data } = await octokit.request('/search/repositories', {
+        q: search,
+      });
+      console.log(data);
+    })();
+  }, [octokit, search]);
 
   useEffect(() => {
     const promise = async () => {

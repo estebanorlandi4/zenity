@@ -16,3 +16,11 @@ export type Languages = string[];
 export type RepoWithLanguages =
   | (Repos[number] & { languages: Languages })
   | null;
+
+export type Sort = 'full_name' | 'pushed' | 'created' | 'updated';
+export type Direction = 'asc' | 'desc';
+export interface ReposOptions {
+  search?: string;
+  sort?: Sort;
+  direction?: Direction;
+}

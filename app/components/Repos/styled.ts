@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { dark } from 'utils/styled';
 
 export const Container = styled.ul`
   display: flex;
@@ -12,6 +13,30 @@ export const Container = styled.ul`
     display: flex;
     gap: 0.25rem;
     flex-flow: column;
+  }
+
+  .filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .search {
+      background-color: ${dark()};
+      padding: 0.35rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .filter-btn {
+      display: flex;
+      align-items: center;
+    }
   }
 `;
 

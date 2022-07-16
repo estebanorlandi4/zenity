@@ -8,8 +8,7 @@ const styles = {
   width: '90%',
   margin: '0 auto',
   display: 'grid',
-  gridTemplateColumns: 'minmax(30rem, auto) 1fr minmax(30rem, auto)',
-  gap: '3rem',
+  gridTemplateColumns: 'minmax(20rem, 1fr) 1fr minmax(20rem, 1fr)',
 };
 
 function Github() {
@@ -20,6 +19,7 @@ function Github() {
       <main style={styles}>
         <GithubUser />
         <Repos />
+        <div />
       </main>
     </GithubProvider>
   );

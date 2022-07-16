@@ -3,6 +3,9 @@ import useRepos from 'hooks/github/useRepos';
 import { Container } from './styled';
 import { Variants } from 'framer-motion';
 import { useState } from 'react';
+import { Direction, ReposOptions, Sort } from 'utils/interfaces/github';
+
+import { BiSort } from 'react-icons/bi';
 
 const N_PLACEHOLDERS = 5;
 
@@ -29,52 +32,62 @@ const variants: Variants = {
   }),
 };
 
-interface Options {
-  search?: string;
-  sort?: 'full_name' | 'pushed' | 'created' | 'updated';
-  direction?: 'asc' | 'desc';
-}
+const sorts: Sort[] = ['full_name', 'pushed', 'created', 'updated'];
+const directions: Direction[] = ['asc', 'desc'];
+
+const sort_labels = {
+  full_name: 'Name',
+  pushed: 'Pushed',
+  created: 'Created',
+  updated: 'Updated',
+};
+
 function Repos() {
-  const [options, setOptions] = useState<Options>({
+  const [options, setOptions] = useState<ReposOptions>({
     search: '',
     sort: 'full_name',
     direction: 'asc',
   });
-  const { repos, isLoading } = useRepos(options);
+  const { repos, refetch, isLoading } = useRepos({ search: options.search });
 
   const handleSort = () => {
-    const arr: Options['sort'][] = [
-      'full_name',
-      'pushed',
-      'created',
-      'updated',
-    ];
-    const index = arr.findIndex((value) => options.sort === value);
-    if (index + 1 >= arr.length)
-      return setOptions((old) => ({ ...old, sort: arr[0] }));
-    return setOptions((old) => ({ ...old, sort: arr[index + 1] }));
+    const index = sorts.findIndex((value) => options.sort === value);
+    const isLastItem = index + 1 >= sorts.length;
+    const sort = isLastItem ? sorts[0] : sorts[index + 1];
+
+    refetch({ ...options, sort });
+    return setOptions((old) => ({ ...old, sort }));
   };
 
   const handleDirection = () => {
-    const arr: Options['direction'][] = ['asc', 'desc'];
-    const index = arr.findIndex((value) => options.direction === value);
-    if (index + 1 >= arr.length)
-      return setOptions((old) => ({ ...old, direction: arr[0] }));
-    return setOptions((old) => ({ ...old, direction: arr[index + 1] }));
+    const index = directions.findIndex((value) => options.direction === value);
+    const isLastItem = index + 1 >= directions.length;
+    const direction = isLastItem ? directions[0] : directions[index + 1];
+
+    refetch({ ...options, direction });
+    return setOptions((old) => ({ ...old, direction }));
   };
 
   return (
     <Container>
-      <div>
+      <div className="filters">
         <input
+          className="search"
           type="text"
           value={options.search}
           onChange={(e) =>
             setOptions((old) => ({ ...old, search: e.target.value }))
           }
         />
-        <button onClick={handleSort}>{options.sort}</button>
-        <button onClick={handleDirection}>{options.direction}</button>
+
+        <div className="buttons">
+          <button className="filter-btn" onClick={handleSort}>
+            {options.sort && sort_labels[options.sort]}
+          </button>
+          <button className="filter-btn" onClick={handleDirection}>
+            {options.direction} <BiSort />
+          </button>
+        </div>
       </div>
 
       {isLoading ||

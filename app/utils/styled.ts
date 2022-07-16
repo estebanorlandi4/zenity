@@ -2,12 +2,14 @@ import { createGlobalStyle } from 'styled-components';
 
 type Opacity = TemplateStringsArray | string;
 
+export const dark = (opacity?: Opacity) => `#1e1e25${opacity || ''}`;
 export const purple = (opacity?: Opacity) => `#764abc${opacity || ''}`;
 export const pink = (opacity?: Opacity) => `#e03db2${opacity || ''}`;
 export const cyan = (opacity?: Opacity) => `#24d3d3${opacity || ''}`;
 
 export const GlobalStyles = createGlobalStyle`
   :root {
+    --dark: ${dark()};
     --purple: ${purple()};
     --pink: ${pink()};
     --cyan: ${cyan()};
@@ -43,7 +45,7 @@ export const GlobalStyles = createGlobalStyle`
 
   input {
     background-color: transparent;
-    border: 1px solid #fff;
+    border: none;
     color: #fff;
   }
 `;

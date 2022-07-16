@@ -1,24 +1,32 @@
 import { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { Octokit } from '@octokit/rest';
 
 import { RepoWithLanguages } from 'utils/interfaces/github';
+import { useOctokit } from 'contexts/githubContext';
 
-function useRepos() {
-  const { data: session } = useSession();
+interface Params {
+  search?: string;
+  sort?: 'full_name' | 'pushed' | 'created' | 'updated';
+  direction?: 'asc' | 'desc';
+}
+
+function useRepos({ search, sort, direction }: Params) {
+  const octokit = useOctokit();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
 
   useEffect(() => {
+    console.log(search);
+  }, [search]);
+
+  useEffect(() => {
     const promise = async () => {
-      if (!session || repos.length) return null;
+      if (!octokit) return null;
 
       setIsLoading(true);
-
-      const { accessToken: auth } = session;
-
-      const octokit = new Octokit({ auth });
-      const { data } = await octokit.rest.repos.listForAuthenticatedUser();
+      const { data } = await octokit.rest.repos.listForAuthenticatedUser({
+        sort,
+        direction,
+      });
 
       Promise.all(
         data.map(async (current) => {
@@ -41,7 +49,7 @@ function useRepos() {
       });
     };
     promise();
-  }, [session, repos.length]);
+  }, [octokit, repos.length, sort, direction]);
 
   return { repos, isLoading };
 }

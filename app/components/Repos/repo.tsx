@@ -18,7 +18,12 @@ interface Props extends MotionProps {
 function Repo({ repo, placeholder, ...others }: Props) {
   const [cloned, setCloned] = useState(false);
   useEffect(() => {
-    if (cloned) setTimeout(() => setCloned(false), 1.5 * 1000);
+    const timeout = cloned
+      ? setTimeout(() => setCloned(false), 1.5 * 1000)
+      : null;
+    return () => {
+      timeout && clearTimeout(timeout);
+    };
   }, [cloned]);
 
   if (placeholder)

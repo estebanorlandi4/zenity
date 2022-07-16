@@ -43,6 +43,7 @@ export const GlobalStyles = createGlobalStyle`
 
   input {
     background-color: transparent;
-    border: none;
+    border: 1px solid #fff;
+    color: #fff;
   }
 `;

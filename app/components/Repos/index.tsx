@@ -2,6 +2,7 @@ import Repo from './repo';
 import useRepos from 'hooks/github/useRepos';
 import { Container } from './styled';
 import { Variants } from 'framer-motion';
+import { useState } from 'react';
 
 const N_PLACEHOLDERS = 5;
 
@@ -28,11 +29,54 @@ const variants: Variants = {
   }),
 };
 
+interface Options {
+  search?: string;
+  sort?: 'full_name' | 'pushed' | 'created' | 'updated';
+  direction?: 'asc' | 'desc';
+}
 function Repos() {
-  const { repos, isLoading } = useRepos();
+  const [options, setOptions] = useState<Options>({
+    search: '',
+    sort: 'full_name',
+    direction: 'asc',
+  });
+  const { repos, isLoading } = useRepos(options);
+
+  const handleSort = () => {
+    const arr: Options['sort'][] = [
+      'full_name',
+      'pushed',
+      'created',
+      'updated',
+    ];
+    const index = arr.findIndex((value) => options.sort === value);
+    if (index + 1 >= arr.length)
+      return setOptions((old) => ({ ...old, sort: arr[0] }));
+    return setOptions((old) => ({ ...old, sort: arr[index + 1] }));
+  };
+
+  const handleDirection = () => {
+    const arr: Options['direction'][] = ['asc', 'desc'];
+    const index = arr.findIndex((value) => options.direction === value);
+    if (index + 1 >= arr.length)
+      return setOptions((old) => ({ ...old, direction: arr[0] }));
+    return setOptions((old) => ({ ...old, direction: arr[index + 1] }));
+  };
 
   return (
     <Container>
+      <div>
+        <input
+          type="text"
+          value={options.search}
+          onChange={(e) =>
+            setOptions((old) => ({ ...old, search: e.target.value }))
+          }
+        />
+        <button onClick={handleSort}>{options.sort}</button>
+        <button onClick={handleDirection}>{options.direction}</button>
+      </div>
+
       {isLoading ||
         (!repos.length &&
           Array.from({ length: N_PLACEHOLDERS }).map((_, i) => (

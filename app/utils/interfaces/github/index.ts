@@ -1,3 +1,4 @@
+import { Octokit } from '@octokit/rest';
 import { Endpoints } from '@octokit/types';
 
 export type User = Endpoints['GET /user']['response']['data'];
@@ -8,6 +9,7 @@ export type Repos = Endpoints['GET /user/repos']['response']['data'];
 export interface IGithubProvider {
   icons: Icons | null;
   user: User | null;
+  octokit: Octokit | null;
 }
 
 export type Languages = string[];

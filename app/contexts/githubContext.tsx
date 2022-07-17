@@ -41,3 +41,12 @@ export const useOctokit = () => {
   const { octokit } = useContext(GithubContext);
   return octokit;
 };
+
+export const useGithubUser = () => {
+  const { user } = useContext(GithubContext);
+  return user;
+};
+
+export const useGithub = () => {
+  return useContext(GithubContext);
+};

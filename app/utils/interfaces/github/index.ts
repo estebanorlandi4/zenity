@@ -5,6 +5,8 @@ export type User = Endpoints['GET /user']['response']['data'];
 export type Users = Endpoints['GET /search/users']['response']['data']['items'];
 export type Icons = Endpoints['GET /emojis']['response']['data'];
 export type Repos = Endpoints['GET /user/repos']['response']['data'];
+export type ReposSearch =
+  Endpoints['GET /search/repositories']['response']['data']['items'];
 
 export interface IGithubProvider {
   icons: Icons | null;
@@ -13,9 +15,8 @@ export interface IGithubProvider {
 }
 
 export type Languages = string[];
-export type RepoWithLanguages =
-  | (Repos[number] & { languages: Languages })
-  | null;
+export type Repo = Repos[number] | ReposSearch[number];
+export type RepoWithLanguages = Repo & { languages: Languages };
 
 export type Sort = 'full_name' | 'pushed' | 'created' | 'updated';
 export type Direction = 'asc' | 'desc';

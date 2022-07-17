@@ -1,83 +1,87 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { RepoWithLanguages, ReposOptions } from 'utils/interfaces/github';
-import { useOctokit } from 'contexts/githubContext';
+import { RepoWithLanguages, ReposOptions, Repo } from 'utils/interfaces/github';
+import { useGithub } from 'contexts/githubContext';
+
+interface State {
+  repos: RepoWithLanguages[];
+  isLoading: boolean;
+}
 
 function useRepos({ search }: ReposOptions) {
-  const octokit = useOctokit();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
+  const { octokit, user } = useGithub();
+
+  const [state, setState] = useState<State>({
+    repos: [],
+    isLoading: true,
+  });
+
+  const getLanguages = useCallback(
+    (repos: Repo[]) => {
+      const promises = repos.map(async (current) => {
+        if (!current || !current.owner || !octokit)
+          return { ...current, languages: [] };
+        const params = {
+          owner: current.owner.login,
+          repo: current.name,
+        };
+
+        if (!params.owner || !params.repo) return { ...current, languages: [] };
+        const { data: languages } = await octokit.request(
+          'GET /repos/{owner}/{repo}/languages',
+          params,
+        );
+
+        return { ...current, languages: Object.keys(languages) };
+      });
+
+      return Promise.all(promises);
+    },
+    [octokit],
+  );
 
   useEffect(() => {
     (async function () {
-      if (!octokit || !search) return null;
+      if (!octokit || !search || !user) return null;
 
-      const { data } = await octokit.request('/search/repositories', {
-        q: search,
+      const {
+        data: { items },
+      } = await octokit.request('GET /search/repositories', {
+        q: `${search}+user:${user.login}`,
       });
-      console.log(data);
+
+      getLanguages(items)?.then((repos) => {
+        setState((old) => ({ ...old, repos, isLoading: false }));
+      });
     })();
-  }, [octokit, search]);
+  }, [octokit, search, user, getLanguages]);
 
   useEffect(() => {
     const promise = async () => {
       if (!octokit || repos.length) return null;
 
-      setIsLoading(true);
+      setState((old) => ({ ...old, isLoading: true }));
       const { data } = await octokit.request('GET /user/repos');
 
-      Promise.all(
-        data.map(async (current) => {
-          const { owner, name } = current;
-          const { owner_name, repo_name } = {
-            owner_name: owner.login ?? '',
-            repo_name: name ?? '',
-          };
-          if (!owner_name || !repo_name) return null;
-          const { data: languages } = await octokit.rest.repos.listLanguages({
-            owner: owner_name,
-            repo: repo_name,
-          });
-
-          return { ...current, languages: Object.keys(languages) };
-        }),
-      ).then((value) => {
-        setRepos(value);
-        setIsLoading(false);
+      getLanguages(data)?.then((repos) => {
+        setState((old) => ({ ...old, repos, isLoading: false }));
       });
     };
-    console.log('hola');
     promise();
-  }, [octokit, repos.length]);
+  }, [octokit, state, getLanguages]);
 
   const refetch = async (options: ReposOptions) => {
     if (!octokit) return null;
 
-    setIsLoading(true);
+    setState((old) => ({ ...old, isLoading: true }));
     const { data } = await octokit.request('GET /user/repos', { ...options });
 
-    Promise.all(
-      data.map(async (current) => {
-        const { owner, name } = current;
-        const { owner_name, repo_name } = {
-          owner_name: owner.login ?? '',
-          repo_name: name ?? '',
-        };
-        if (!owner_name || !repo_name) return null;
-        const { data: languages } = await octokit.rest.repos.listLanguages({
-          owner: owner_name,
-          repo: repo_name,
-        });
-
-        return { ...current, languages: Object.keys(languages) };
-      }),
-    ).then((value) => {
-      setRepos(value);
-      setIsLoading(false);
+    getLanguages(data)?.then((repos) => {
+      setState((old) => ({ ...old, repos, isLoading: false }));
     });
   };
 
-  return { repos, refetch, isLoading };
+  return { refetch, ...state };
 }
 
 export default useRepos;

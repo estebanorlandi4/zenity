@@ -42,6 +42,12 @@ const sort_labels = {
   updated: 'Updated',
 };
 
+function cicleArray<T>(current: T, array: T[]): T {
+  const index = array.findIndex((value) => value === current);
+  const isLastItem = index + 1 >= array.length;
+  return isLastItem ? array[0] : array[index + 1];
+}
+
 function Repos() {
   const [options, setOptions] = useState<ReposOptions>({
     search: '',
@@ -51,18 +57,16 @@ function Repos() {
   const { repos, refetch, isLoading } = useRepos({ search: options.search });
 
   const handleSort = () => {
-    const index = sorts.findIndex((value) => options.sort === value);
-    const isLastItem = index + 1 >= sorts.length;
-    const sort = isLastItem ? sorts[0] : sorts[index + 1];
+    if (!options.sort) return;
+    const sort = cicleArray<Sort>(options.sort, sorts);
 
     refetch({ ...options, sort });
     return setOptions((old) => ({ ...old, sort }));
   };
 
   const handleDirection = () => {
-    const index = directions.findIndex((value) => options.direction === value);
-    const isLastItem = index + 1 >= directions.length;
-    const direction = isLastItem ? directions[0] : directions[index + 1];
+    if (!options.direction) return;
+    const direction = cicleArray<Direction>(options.direction, directions);
 
     refetch({ ...options, direction });
     return setOptions((old) => ({ ...old, direction }));

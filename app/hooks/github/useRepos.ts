@@ -8,7 +8,7 @@ interface State {
   isLoading: boolean;
 }
 
-function useRepos({ search }: ReposOptions) {
+function useRepos() {
   const { octokit, user } = useGithub();
 
   const [state, setState] = useState<State>({
@@ -40,21 +40,28 @@ function useRepos({ search }: ReposOptions) {
     [octokit],
   );
 
-  useEffect(() => {
-    (async function () {
-      if (!octokit || !search || !user) return null;
+  const search = useCallback(
+    async (search: string) => {
+      if (!octokit || !user) return null;
 
-      const {
-        data: { items },
-      } = await octokit.request('GET /search/repositories', {
-        q: `${search}+user:${user.login}`,
-      });
+      if (search) {
+        const q = `${search}+user:${user.login}`;
+        const {
+          data: { items },
+        } = await octokit.request('GET /search/repositories', { q });
 
-      getLanguages(items)?.then((repos) => {
+        return getLanguages(items)?.then((repos) => {
+          setState((old) => ({ ...old, repos, isLoading: false }));
+        });
+      }
+
+      const { data } = await octokit.request('GET /user/repos');
+      return getLanguages(data)?.then((repos) => {
         setState((old) => ({ ...old, repos, isLoading: false }));
       });
-    })();
-  }, [octokit, search, user, getLanguages]);
+    },
+    [octokit, user, getLanguages],
+  );
 
   useEffect(() => {
     const promise = async () => {
@@ -81,7 +88,7 @@ function useRepos({ search }: ReposOptions) {
     });
   };
 
-  return { refetch, ...state };
+  return { refetch, search, ...state };
 }
 
 export default useRepos;

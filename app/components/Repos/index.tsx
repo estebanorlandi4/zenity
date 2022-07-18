@@ -2,7 +2,7 @@ import Repo from './repo';
 import useRepos from 'hooks/github/useRepos';
 import { Container } from './styled';
 import { Variants } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Direction, ReposOptions, Sort } from 'utils/interfaces/github';
 import { Change } from 'utils/interfaces';
 
@@ -56,7 +56,7 @@ function Repos() {
     sort: 'full_name',
     direction: 'asc',
   });
-  const { repos, refetch, isLoading } = useRepos({ search: options.search });
+  const { repos, refetch, isLoading, search } = useRepos();
   const { update } = useRepoDetails();
 
   const handleSort = () => {
@@ -75,8 +75,14 @@ function Repos() {
     return setOptions((old) => ({ ...old, direction }));
   };
 
-  const handleSearch = ({ target: { value } }: Change) =>
+  const handleSearch = ({ target: { value } }: Change) => {
     setOptions((old) => ({ ...old, search: value }));
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => search(options.search || ''), 350);
+    return () => clearTimeout(timeout);
+  }, [options.search, search]);
 
   return (
     <Container>

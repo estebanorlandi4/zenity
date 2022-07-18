@@ -8,12 +8,6 @@ export type Repos = Endpoints['GET /user/repos']['response']['data'];
 export type ReposSearch =
   Endpoints['GET /search/repositories']['response']['data']['items'];
 
-export interface IGithubProvider {
-  icons: Icons | null;
-  user: User | null;
-  octokit: Octokit | null;
-}
-
 export type Languages = string[];
 export type Repo = Repos[number] | ReposSearch[number];
 export type RepoWithLanguages = Repo & { languages: Languages };
@@ -24,4 +18,13 @@ export interface ReposOptions {
   search?: string;
   sort?: Sort;
   direction?: Direction;
+}
+
+export interface IGithubProvider {
+  icons: Icons | null;
+  user: User | null;
+  octokit: Octokit | null;
+  repo_details: Repo | null;
+
+  [key: string]: any;
 }

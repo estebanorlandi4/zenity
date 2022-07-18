@@ -4,8 +4,10 @@ import { Container } from './styled';
 import { Variants } from 'framer-motion';
 import { useState } from 'react';
 import { Direction, ReposOptions, Sort } from 'utils/interfaces/github';
+import { Change } from 'utils/interfaces';
 
 import { BiSort } from 'react-icons/bi';
+import { useRepoDetails } from 'contexts/githubContext';
 
 const N_PLACEHOLDERS = 5;
 
@@ -55,6 +57,7 @@ function Repos() {
     direction: 'asc',
   });
   const { repos, refetch, isLoading } = useRepos({ search: options.search });
+  const { update } = useRepoDetails();
 
   const handleSort = () => {
     if (!options.sort) return;
@@ -72,6 +75,9 @@ function Repos() {
     return setOptions((old) => ({ ...old, direction }));
   };
 
+  const handleSearch = ({ target: { value } }: Change) =>
+    setOptions((old) => ({ ...old, search: value }));
+
   return (
     <Container>
       <div className="filters">
@@ -79,17 +85,15 @@ function Repos() {
           className="search"
           type="text"
           value={options.search}
-          onChange={(e) =>
-            setOptions((old) => ({ ...old, search: e.target.value }))
-          }
+          onChange={handleSearch}
         />
 
         <div className="buttons">
-          <button className="filter-btn" onClick={handleSort}>
+          <button className="btn" onClick={handleSort}>
             {options.sort && sort_labels[options.sort]}
           </button>
-          <button className="filter-btn" onClick={handleDirection}>
-            {options.direction} <BiSort />
+          <button className="btn" onClick={handleDirection}>
+            <span>{options.direction}</span> <BiSort size={18} />
           </button>
         </div>
       </div>
@@ -118,6 +122,7 @@ function Repos() {
                 variants={variants}
                 custom={{ timeout: i * 0.25 }}
                 repo={repo}
+                details={update}
               />
             ),
         )}

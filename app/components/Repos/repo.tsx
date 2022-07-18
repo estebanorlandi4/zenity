@@ -13,9 +13,10 @@ import { Placeholder } from 'components/Placeholder';
 interface Props extends MotionProps {
   repo?: RepoWithLanguages;
   placeholder?: boolean;
+  details?: ({ owner, repo }: { owner: string; repo: string }) => any;
 }
 
-function Repo({ repo, placeholder, ...others }: Props) {
+function Repo({ repo, placeholder, details, ...others }: Props) {
   const [cloned, setCloned] = useState(false);
   useEffect(() => {
     const timeout = cloned
@@ -45,6 +46,7 @@ function Repo({ repo, placeholder, ...others }: Props) {
 
   if (!repo) return null;
   const { clone_url, owner, html_url, visibility, name } = repo;
+
   const handleCopy = (value: string) => {
     toClipboard(value);
     setCloned(true);
@@ -62,18 +64,26 @@ function Repo({ repo, placeholder, ...others }: Props) {
       </div>
 
       <div className="repo-right">
-        <ExtLink className="repo-owner" href={owner.html_url}>
-          {owner.login}
-          <div className="avatar-container">
-            <Image
-              height="50px"
-              width="50px"
-              src={owner.avatar_url}
-              alt={owner.login}
-              className="repo-avatar"
-            />
-          </div>
-        </ExtLink>
+        {owner ? (
+          <ExtLink className="repo-owner" href={owner.html_url}>
+            {owner.login}
+            <div className="avatar-container">
+              <Image
+                height="50px"
+                width="50px"
+                src={owner.avatar_url}
+                alt={owner.login}
+                className="repo-avatar"
+              />
+            </div>
+          </ExtLink>
+        ) : null}
+
+        {owner ? (
+          <button onClick={() => details!({ owner: owner.login, repo: name })}>
+            details
+          </button>
+        ) : null}
 
         <div className="clone-container">
           <AnimatePresence>

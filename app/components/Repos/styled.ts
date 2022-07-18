@@ -31,11 +31,15 @@ export const Container = styled.ul`
       display: flex;
       align-items: center;
       gap: 1rem;
-    }
 
-    .filter-btn {
-      display: flex;
-      align-items: center;
+      .btn {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+
+        span {
+        }
+      }
     }
   }
 `;

@@ -58,7 +58,7 @@ function useRepos({ search }: ReposOptions) {
 
   useEffect(() => {
     const promise = async () => {
-      if (!octokit || repos.length) return null;
+      if (!octokit || state.repos.length) return null;
 
       setState((old) => ({ ...old, isLoading: true }));
       const { data } = await octokit.request('GET /user/repos');
@@ -68,7 +68,7 @@ function useRepos({ search }: ReposOptions) {
       });
     };
     promise();
-  }, [octokit, state, getLanguages]);
+  }, [octokit, state.repos.length, getLanguages]);
 
   const refetch = async (options: ReposOptions) => {
     if (!octokit) return null;

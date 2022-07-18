@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useIcons, useUser } from 'hooks/github';
-import { IGithubProvider } from 'utils/interfaces/github';
+import { Repo, IGithubProvider } from 'utils/interfaces/github';
 import { Children } from 'utils/interfaces';
 import { Octokit } from '@octokit/rest';
 import { useSession } from 'next-auth/react';
@@ -10,6 +10,7 @@ const initial: IGithubProvider = {
   icons: null,
   user: null,
   octokit: null,
+  repo_details: null,
 };
 const GithubContext = createContext<IGithubProvider>(initial);
 
@@ -21,6 +22,9 @@ export const GithubProvider = ({ children }: Props) => {
   const { icons } = useIcons();
   const { user } = useUser();
   const { data: session } = useSession();
+  const [repoDetails, setRepoDetails] =
+    useState<IGithubProvider['repo_details']>(null);
+  const updateDetails = (value: Repo | null) => setRepoDetails(value);
 
   useEffect(() => {
     if (!session) return setOctokit(null);
@@ -29,7 +33,9 @@ export const GithubProvider = ({ children }: Props) => {
   }, [session]);
 
   return (
-    <GithubContext.Provider value={{ icons, user, octokit }}>
+    <GithubContext.Provider
+      value={{ repo_details: repoDetails, updateDetails, icons, user, octokit }}
+    >
       {children}
     </GithubContext.Provider>
   );
@@ -49,4 +55,26 @@ export const useGithubUser = () => {
 
 export const useGithub = () => {
   return useContext(GithubContext);
+};
+
+interface DetailsProps {
+  owner: string;
+  repo: string;
+}
+export const useRepoDetails = () => {
+  const { octokit, repo_details, updateDetails } = useContext(GithubContext);
+
+  const update = async (value: DetailsProps | null) => {
+    if (!value) return updateDetails(null);
+    const { owner, repo } = value ? value : { owner: null, repo: null };
+    if (!octokit || !owner || !repo) return null;
+    const { data } = await octokit.request('GET /repos/{owner}/{repo}', {
+      owner,
+      repo,
+    });
+
+    updateDetails(data);
+  };
+
+  return { repo_details, update };
 };

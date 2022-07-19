@@ -23,6 +23,7 @@ export const routes: NavbarSections = {
     {
       label: 'github',
       path: '/github',
+      authOnly: true,
       icon: {
         at: 'left',
         element: <DiGithubBadge size={size + 5} className="icon" />,
@@ -33,7 +34,6 @@ export const routes: NavbarSections = {
     {
       label: 'login',
       path: '/auth/login',
-      authOnly: true,
       icon: {
         at: 'right',
         element: <HiLogin size={14} className="icon" />,

@@ -36,7 +36,9 @@ function RepoDetails() {
   if (!repo_details) return <div />;
 
   console.log(repo_details);
-  const { name, owner } = repo_details;
+  const { name, owner, created_at, default_branch } = repo_details;
+
+  const time = created_at ? new Date(created_at) : null;
   return (
     <Section>
       <button onClick={() => update(null)}>remove</button>
@@ -50,6 +52,15 @@ function RepoDetails() {
           <h4>{owner.login}</h4>
         </div>
       ) : null}
+
+      <p>
+        Created at:
+        <time>
+          {time?.getDate()}/{time?.getMonth()}/{time?.getFullYear()}
+        </time>
+      </p>
+
+      <p>{default_branch}</p>
     </Section>
   );
 }

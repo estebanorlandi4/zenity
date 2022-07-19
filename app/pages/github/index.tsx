@@ -1,10 +1,9 @@
-import { NextPageContext } from 'next';
 import GithubUser from 'components/GithubUser';
 import Navbar from 'components/Navbar';
 import RepoDetails from 'components/RepoDetails';
 import Repos from 'components/Repos';
 import { GithubProvider } from 'contexts/githubContext';
-import { getSession } from 'next-auth/react';
+import privateFactory from 'utils/privateFactory';
 
 const styles = {
   padding: '5rem 0 0 0',
@@ -29,11 +28,6 @@ function Github() {
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession();
-  if (!session)
-    return { props: {}, redirect: { permanent: false, destination: '/' } };
-  return { props: {} };
-}
+export const getServerSideProps = privateFactory({ permanent: false });
 
 export default Github;

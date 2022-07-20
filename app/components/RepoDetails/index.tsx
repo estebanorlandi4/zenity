@@ -1,42 +1,16 @@
 import { useRepoDetails } from 'contexts/githubContext';
 import Image from 'next/image';
-import styled from 'styled-components';
+import Colors from 'assets/colors.json';
+import { Section } from './styled';
 
-const Section = styled.section`
-  display: flex;
-  flex-flow: column;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  background-color: #afafff0a;
-  border-radius: 0.5rem;
-
-  .name {
-    font-size: 1.5rem;
-  }
-
-  .owner {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.75rem;
-    opacity: 0.5;
-
-    .image-container {
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 100%;
-      overflow: hidden;
-    }
-  }
-`;
+const colors: { [key: string]: string | null } = Colors;
 
 function RepoDetails() {
   const { repo_details, update } = useRepoDetails();
 
   if (!repo_details) return <div />;
 
-  console.log(repo_details);
-  const { name, owner, created_at, default_branch } = repo_details;
+  const { name, owner, created_at, default_branch, languages } = repo_details;
 
   const time = created_at ? new Date(created_at) : null;
   return (
@@ -61,6 +35,18 @@ function RepoDetails() {
       </p>
 
       <p>{default_branch}</p>
+
+      <ul className="languages">
+        {languages.map((language: string, i) => (
+          <li
+            key={language + i}
+            style={{ backgroundColor: colors[language] || '#fff1' }}
+            className="language"
+          >
+            {language}
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }

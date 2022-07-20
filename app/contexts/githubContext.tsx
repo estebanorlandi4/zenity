@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { useIcons, useUser } from 'hooks/github';
 import { Repo, IGithubProvider } from 'utils/interfaces/github';
@@ -22,9 +28,10 @@ export const GithubProvider = ({ children }: Props) => {
   const { icons } = useIcons();
   const { user } = useUser();
   const { data: session } = useSession();
-  const [repoDetails, setRepoDetails] =
-    useState<IGithubProvider['repo_details']>(null);
-  const updateDetails = (value: Repo | null) => setRepoDetails(value);
+
+  type Details = IGithubProvider['repo_details'];
+  const [repoDetails, setRepoDetails] = useState<Details>(null);
+  const updateDetails = (value: Details | null) => setRepoDetails(value);
 
   useEffect(() => {
     if (!session) return setOctokit(null);
@@ -73,7 +80,15 @@ export const useRepoDetails = () => {
       repo,
     });
 
-    updateDetails(data);
+    const { data: languages } = await octokit.request(
+      'GET /repos/{owner}/{repo}/languages',
+      {
+        owner: data.owner.login,
+        repo: data.name,
+      },
+    );
+
+    updateDetails({ ...data, languages: Object.keys(languages) });
   };
 
   return { repo_details, update };

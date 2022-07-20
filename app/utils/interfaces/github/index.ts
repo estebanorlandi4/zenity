@@ -24,7 +24,7 @@ export interface IGithubProvider {
   icons: Icons | null;
   user: User | null;
   octokit: Octokit | null;
-  repo_details: Repo | null;
+  repo_details: RepoWithLanguages | null;
 
   [key: string]: any;
 }

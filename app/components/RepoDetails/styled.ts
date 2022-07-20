@@ -29,11 +29,27 @@ export const Section = styled.section`
   }
   .languages {
     display: flex;
-    gap: 0.5rem;
+    width: 100%;
 
     .language {
-      padding: 0.25rem 0.5rem;
-      font-size: 0.85rem;
+      position: relative;
+      height: 0.5rem;
+      min-width: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+
+      :first-child {
+        border-radius: 1rem 0 0 1rem;
+      }
+      :last-child {
+        border-radius: 0 1rem 1rem 0;
+      }
+
+      transition: all 0.25s;
+      :hover {
+        min-width: 10%;
+      }
     }
   }
 `;

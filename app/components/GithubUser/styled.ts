@@ -5,6 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-flow: column;
   gap: 0.5rem;
+  width: max-content;
 
   .bio {
     width: 20rem;

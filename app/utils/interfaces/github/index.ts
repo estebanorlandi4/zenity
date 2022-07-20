@@ -8,7 +8,7 @@ export type Repos = Endpoints['GET /user/repos']['response']['data'];
 export type ReposSearch =
   Endpoints['GET /search/repositories']['response']['data']['items'];
 
-export type Languages = string[];
+export type Languages = { name: string; percentage: number }[];
 export type Repo = Repos[number] | ReposSearch[number];
 export type RepoWithLanguages = Repo & { languages: Languages };
 

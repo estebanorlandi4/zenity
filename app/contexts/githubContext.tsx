@@ -1,13 +1,7 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useIcons, useUser } from 'hooks/github';
-import { Repo, IGithubProvider } from 'utils/interfaces/github';
+import { IGithubProvider } from 'utils/interfaces/github';
 import { Children } from 'utils/interfaces';
 import { Octokit } from '@octokit/rest';
 import { useSession } from 'next-auth/react';
@@ -88,7 +82,19 @@ export const useRepoDetails = () => {
       },
     );
 
-    updateDetails({ ...data, languages: Object.keys(languages) });
+    if (!Object.keys(languages).length)
+      return updateDetails({ ...data, languages: [] });
+    const totalBytes = Object.values(languages).reduce(
+      (acc, value) => acc + value,
+    );
+
+    updateDetails({
+      ...data,
+      languages: Object.entries(languages).map(([language, bytes]) => {
+        const percentage = Math.round((bytes * 100) / totalBytes);
+        return { name: language, percentage };
+      }),
+    });
   };
 
   return { repo_details, update };

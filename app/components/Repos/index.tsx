@@ -92,6 +92,7 @@ function Repos() {
           type="text"
           value={options.search}
           onChange={handleSearch}
+          placeholder="Search repo"
         />
 
         <div className="buttons">
